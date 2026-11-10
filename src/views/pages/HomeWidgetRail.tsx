@@ -96,7 +96,7 @@ export default function HomeWidgetRail({ v }: Props) {
             <div style={{"background":"var(--surface)","border":"1px solid var(--border)","borderRadius":"var(--card-r,18px)","backdropFilter":"blur(20px) saturate(1.3)","boxShadow":"var(--card-shadow)","transition":"transform .28s var(--ease),border-color .24s var(--ease),box-shadow .28s var(--ease)","padding":"20px 22px 10px"}}>
               <div style={{"display":"flex","alignItems":"center","gap":"10px"}}>
                 <div style={{"flex":"1","fontSize":"13.5px","fontWeight":"500"}}>
-                  {"Action inbox"}
+                  {"Priority decisions"}
                 </div>
                 <span style={{"height":"24px","display":"flex","alignItems":"center","padding":"0 10px","background":"var(--surface-2)","border":"1px solid var(--border)","borderRadius":"var(--r-sm,9px)","fontFamily":"var(--mono)","fontSize":"11px","color":"var(--dim)"}}>
                   {txt(v.inboxCount)}
@@ -133,7 +133,7 @@ export default function HomeWidgetRail({ v }: Props) {
                 {v.inboxEmpty && (
                   <>
                     <div style={{"padding":"20px 0 24px","borderTop":"1px solid var(--border)","textAlign":"center","fontSize":"12.5px","color":"var(--dim)"}}>
-                      {"Nothing needs you."}
+                      {"Nothing is waiting for your decision."}
                     </div>
                   </>
                 )}
@@ -170,7 +170,7 @@ export default function HomeWidgetRail({ v }: Props) {
                           <path d="M20 6 9 17l-5-5" />
                         </svg>
                       </button>
-                      <span style={css(cat("flex:1;min-width:0;font-size:12.5px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;color:", t?.color, ";text-decoration:", t?.strike))}>
+                      <span role="button" tabIndex={0} onClick={t?.open} onKeyDown={(e) => { if (e.key === "Enter") t?.open?.(); }} style={css(cat("flex:1;min-width:0;cursor:pointer;font-size:12.5px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;color:", t?.color, ";text-decoration:", t?.strike))}>
                         {txt(t?.title)}
                       </span>
                       <span style={css(cat("font-family:var(--mono);font-size:10.5px;color:", t?.dueColor))}>
@@ -188,7 +188,7 @@ export default function HomeWidgetRail({ v }: Props) {
             <div style={{"background":"var(--surface)","border":"1px solid var(--border)","borderRadius":"var(--card-r,18px)","backdropFilter":"blur(20px) saturate(1.3)","boxShadow":"var(--card-shadow)","transition":"transform .28s var(--ease),border-color .24s var(--ease),box-shadow .28s var(--ease)","padding":"20px 22px 22px"}}>
               <div style={{"display":"flex","alignItems":"center","gap":"10px"}}>
                 <div style={{"flex":"1","fontSize":"13.5px","fontWeight":"500"}}>
-                  {"Today's numbers"}
+                  {"Business snapshot"}
                 </div>
                 {v.widgetEdit && (
                   <>
@@ -225,7 +225,7 @@ export default function HomeWidgetRail({ v }: Props) {
             <div style={{"background":"var(--surface)","border":"1px solid var(--border)","borderRadius":"var(--card-r,18px)","backdropFilter":"blur(20px) saturate(1.3)","boxShadow":"var(--card-shadow)","transition":"transform .28s var(--ease),border-color .24s var(--ease),box-shadow .28s var(--ease)","padding":"20px 22px 10px"}}>
               <div style={{"display":"flex","alignItems":"center","gap":"10px"}}>
                 <div style={{"flex":"1","fontSize":"13.5px","fontWeight":"500"}}>
-                  {"Site visits this week"}
+                  {"Upcoming for you"}
                 </div>
                 {v.widgetEdit && (
                   <>
@@ -240,7 +240,7 @@ export default function HomeWidgetRail({ v }: Props) {
               <div style={{"marginTop":"6px"}}>
                 {arr(v.visitWidget).map((v: any, i21: number) => (
                   <Fragment key={i21}>
-                    <div style={{"display":"flex","alignItems":"center","gap":"11px","padding":"11px 0","borderTop":"1px solid var(--border)"}}>
+                    <div role="button" tabIndex={0} onClick={v?.open} onKeyDown={(e) => { if (e.key === "Enter") v?.open?.(); }} style={{"display":"flex","alignItems":"center","gap":"11px","padding":"11px 0","borderTop":"1px solid var(--border)","cursor":"pointer"}}>
                       <span style={css(cat("width:7px;height:7px;border-radius:2px;flex:none;background:", v?.dot))} />
                       <span style={{"flex":"1","minWidth":"0","fontSize":"12.5px","overflow":"hidden","textOverflow":"ellipsis","whiteSpace":"nowrap"}}>
                         {txt(v?.title)}
@@ -279,7 +279,7 @@ export default function HomeWidgetRail({ v }: Props) {
               <div style={{"marginTop":"14px"}}>
                 {arr(v.activity).map((a: any, i22: number) => (
                   <Fragment key={i22}>
-                    <div style={{"display":"flex","gap":"11px","paddingBottom":"14px"}}>
+                    <div role="button" tabIndex={0} onClick={a?.open} onKeyDown={(e) => { if (e.key === "Enter") a?.open?.(); }} style={{"display":"flex","gap":"11px","paddingBottom":"14px","cursor":"pointer"}}>
                       <span style={css(cat("width:6px;height:6px;border-radius:2px;flex:none;margin-top:6px;background:", a?.dot))} />
                       <div style={{"minWidth":"0","flex":"1"}}>
                         <div style={{"fontSize":"12.5px","lineHeight":"1.5","color":"var(--body)"}}>

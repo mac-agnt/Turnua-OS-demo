@@ -1,57 +1,35 @@
-# Pulse — Harbour
+# Turnua OS · Operations Platform (demo)
 
-React build of the **Pulse v5 Harbour** design from Claude Design, the operations dashboard mocked up for Kilbride Group.
+A client-specific sales demo built inside the Pulse v4 Glass template, showing how Pulse could run Turnua's project delivery, critical-site service, people, compliance and commercial decisions as one connected operating picture.
 
-Every page, theme and interaction from the design is here. Screens were checked against the original mockup and match pixel for pixel at 1440×900 and 1024×720.
+Frontend only. All records are fictional demo data seeded relative to today (Europe/Dublin) and kept in this browser's local storage. Integrations are simulated; nothing is sent anywhere.
 
 ## Run it
 
 ```bash
 npm install
-npm run dev        # http://localhost:5173
-npm run build      # type-check + production build into dist/
+npm run dev        # http://localhost:5173 (the Claude preview uses 5176)
+npm run typecheck
+npm run build
 ```
 
-## What's in it
+Settings → Experience → Reset demo restores the canonical scenario.
+
+## Where things live
 
 | Area | Where |
 | --- | --- |
-| Pages: Home (Helios chat), Agents, Dashboard, Work, Records, Activity, Settings | `src/views/pages/` |
-| Overlays: ⌘K palette, agent studio, Helios mini chat, work viewer, new record, background gallery | `src/views/overlays/` |
-| App frame: sidebar, top bar, notifications | `src/views/AppShell.tsx` |
-| State and behaviour | `src/logic/PulseLogic.js` |
-| Demo data (Kilbride Group) | `src/logic/data.js` |
-| Agent avatar | `src/components/AgentFace.tsx` |
-| Theme tokens (Harbour, light and 11 more), animations | `src/styles/pulse.css` |
+| Canonical records, IDs and relationships | `src/turnua/types.ts`, `src/turnua/seed.ts` |
+| Store, persistence, day migration | `src/turnua/store.ts` |
+| Derived totals (every number on screen) | `src/turnua/selectors.ts` |
+| Mutations, activity and audit | `src/turnua/actions.ts` |
+| Agents (8) and Home chat answers | `src/turnua/agents.ts`, `src/turnua/assistant.ts` |
+| Routes, overlays, toasts, prefs | `src/turnua/ui.ts`, `src/turnua/Overlays.tsx` |
+| Modules | `src/turnua/modules/*` |
+| Shared drawers (task, approval, records) | `src/turnua/drawers/*` |
+| Brand themes and components | `src/turnua/turnua.css`, `src/turnua/kit.tsx` |
+| Pulse shell (Home chat, Ontology, rail, top bar) | `src/views/*`, `src/logic/PulseLogic.js` via `src/turnua/bridge.ts` |
 
-## How it fits together
+Read `CLAUDE.md` before customising: Agents stays under Home, Ontology stays first in Records, and the Home centre column stays clean.
 
-- **`PulseLogic`** holds all state. Its `renderVals()` returns one flat object `v`.
-- **Views** are plain React components that render from `v`.
-- **`LogicHost`** (`src/runtime/logic.tsx`) mounts the logic and re-renders on `setState`.
-- **Backgrounds** live in `src/App.tsx`:
-  - `dashboardBackdrop`: the colour of the Dashboard KPI background
-  - `kpiBackdropOn`: whether that background shows
-  - `recordsBackdrop`: the colour of the Records wash (`""` uses the theme gradient)
-- **Customising for a client:** read `CLAUDE.md` first. It lists the layout rules every copy keeps.
-
-## Updating from Claude Design
-
-Export the new version, replace the file in `design/`, then run:
-
-```bash
-npm run import-design
-```
-
-This regenerates:
-
-- `src/views/`
-- `src/styles/pulse.css`
-- `src/styles/interactions.css`
-- `src/logic/`
-
-`AgentFace` is hand-written and left alone. Commit before running, because it overwrites hand edits to those files.
-
-## Fixed from the mockup
-
-In the mockup, the work viewer's wrapper `<div>` was never closed. As a result, the ⌘K palette, agent studio, new record dialog and background gallery could only appear while the work viewer was open. They now open on their own. The fix is applied in `tools/import-design.mjs`.
+Do not run `npm run import-design` on this copy; it overwrites the customised shell.

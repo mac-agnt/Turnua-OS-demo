@@ -1,4 +1,5 @@
-import { Fragment } from "react";
+import { Fragment, useEffect, useState } from "react";
+import { useRoute } from "../turnua/ui";
 import { arr, cat, css, cx, txt } from "../runtime/template";
 import AgentFace from "../components/AgentFace";
 import NavThumb from "../components/NavThumb";
@@ -18,28 +19,36 @@ import AgentStudio from "./overlays/AgentStudio";
 import NewRecordDialog from "./overlays/NewRecordDialog";
 import CommandPalette from "./overlays/CommandPalette";
 import BackgroundGallery from "./overlays/BackgroundGallery";
+import TurnuaModules, { TurnuaRecordsTab } from "../turnua/modules/Router";
+import TurnuaOverlays from "../turnua/Overlays";
+import NewMenu from "../turnua/NewMenu";
 
 type Props = { v: any };
 
 export default function AppShell({ v }: Props) {
+  // phone widths: the side rail becomes a drawer opened from the top bar
+  const [mnav, setMnav] = useState(false);
+  const route = useRoute();
+  useEffect(() => { setMnav(false); }, [route.path]);
   return (
     <>
-    <div data-theme={v.theme} style={{"fontFamily":"var(--ui)","position":"relative","display":"flex","height":"100vh","overflow":"hidden","background":"var(--bg)","color":"var(--ink)",...v.rootVars}}>
+    <div data-theme={v.theme} className={mnav ? "tu-navopen" : undefined} style={{"fontFamily":"var(--ui)","position":"relative","display":"flex","height":"100vh","overflow":"hidden","background":"var(--bg)","color":"var(--ink)",...v.rootVars}}>
       <div style={{"position":"absolute","width":"1px","height":"1px","overflow":"hidden","opacity":"0","pointerEvents":"none"}}>
         <AgentFace shape={"crown-pebble"} state={"idle"} tint={"#191c1f"} size={"1"} />
       </div>
       <nav data-rail-nav="1" style={css(v.railOuter)}>
         <span style={css(v.railThumbStyle)} />
         <div style={css(cat(v.railRowStyle, "margin-bottom:22px"))}>
-          <button className={cx("ix0", "ix1")} onClick={v.toggleRail} title={v.railLabel} style={{"width":"36px","height":"36px","flex":"none","border":"0","borderRadius":"var(--cta-r,11px)","background":"var(--accent-fill,var(--accent))","color":"var(--on-accent)","boxShadow":"var(--accent-glow,none)","cursor":"pointer","display":"flex","alignItems":"center","justifyContent":"center","fontSize":"13px","fontWeight":"600","padding":"0","transition":"transform .2s var(--ease)"}}>
-            {"K"}
+          <button className={cx("ix0", "ix1")} onClick={v.toggleRail} title={v.railLabel} style={{"width":"36px","height":"36px","flex":"none","border":"0","borderRadius":"var(--cta-r,11px)","background":"var(--accent-fill,var(--accent))","color":"var(--on-accent)","boxShadow":"var(--accent-glow,none)","cursor":"pointer","display":v.railOpen ? "none" : "flex","alignItems":"center","justifyContent":"center","fontSize":"13px","fontWeight":"600","padding":"0","transition":"transform .2s var(--ease)"}} aria-label="Expand sidebar">
+            <img src="/turnua-mark.svg" alt="Turnua" width={14} height={17} style={{"display":"block"}} />
           </button>
           <span style={css(v.brandStyle)}>
-            <span style={{"display":"block","fontSize":"15px","fontWeight":"600","letterSpacing":"-.3px","color":"var(--ink)"}}>
-              {"Kilbride Group"}
+            <span style={{"display":"flex","alignItems":"center","gap":"8px"}}>
+              <img src="/turnua-logo.svg" alt="Turnua" width={97} height={17} style={{"display":"block","flex":"none"}} />
+              <span style={{"fontSize":"15px","fontWeight":"600","letterSpacing":"-.2px","color":"var(--ink)","lineHeight":"1"}}>{"OS"}</span>
             </span>
-            <span style={{"display":"block","marginTop":"2px","fontSize":"9px","fontWeight":"500","letterSpacing":".16em","color":"var(--accent)"}}>
-              {"PULSE · OPERATIONS"}
+            <span style={{"display":"block","marginTop":"6px","fontSize":"9px","fontWeight":"600","letterSpacing":".16em","color":"var(--accent)"}}>
+              {"OPERATIONS PLATFORM"}
             </span>
           </span>
           {v.railOpen && (
@@ -94,16 +103,17 @@ export default function AppShell({ v }: Props) {
               <div style={{"fontSize":"11px","fontWeight":"600","letterSpacing":".12em","color":"var(--faint)"}}>
                 {"SIGNED IN"}
               </div>
+              <a href="#/settings/experience" title="Fictional records and local state only. Explained in Settings, Experience." style={{"display":"inline-flex","alignItems":"center","gap":"6px","marginTop":"8px","letterSpacing":".08em","padding":"3px 8px","borderRadius":"999px","border":"1px solid rgba(22,198,216,.45)","color":"#16C6D8","fontSize":"9.5px","fontWeight":"600","textDecoration":"none"}}>{"DEMO WORKSPACE"}</a>
               <div style={{"display":"flex","alignItems":"center","gap":"11px","marginTop":"12px"}}>
-                <div style={{"width":"40px","height":"40px","flex":"none","borderRadius":"999px","background":"var(--accent-soft)","color":"var(--accent)","display":"flex","alignItems":"center","justifyContent":"center","fontSize":"13px","fontWeight":"600"}}>
-                  {"MK"}
+                <div style={{"width":"40px","height":"40px","flex":"none","borderRadius":"999px","background":"#16C6D8","color":"#08132A","display":"flex","alignItems":"center","justifyContent":"center","fontSize":"13px","fontWeight":"600"}}>
+                  {"DC"}
                 </div>
                 <div style={{"minWidth":"0"}}>
                   <div style={{"fontSize":"17px","fontWeight":"600","letterSpacing":"-.3px","color":"var(--ink)","whiteSpace":"nowrap","overflow":"hidden","textOverflow":"ellipsis"}}>
-                    {"Martin Kilbride"}
+                    {"David Cox"}
                   </div>
                   <div style={{"fontSize":"12.5px","color":"var(--faint)","marginTop":"2px","whiteSpace":"nowrap","overflow":"hidden","textOverflow":"ellipsis"}}>
-                    {"Kilbride Group · Owner"}
+                    {"Managing Director"}
                   </div>
                 </div>
               </div>
@@ -143,14 +153,14 @@ export default function AppShell({ v }: Props) {
             </button>
             <div style={css(cat(v.railRowStyle, "margin-top:10px;padding:12px 10px;border-top:1px solid var(--border)"))}>
               <div style={{"width":"40px","height":"40px","flex":"none","borderRadius":"12px","background":"var(--surface-2)","border":"1px solid var(--border)","color":"var(--body)","display":"flex","alignItems":"center","justifyContent":"center","fontSize":"12px","fontWeight":"600","cursor":"pointer"}}>
-                {"MK"}
+                {"DC"}
               </div>
               <span style={css(v.brandStyle)}>
                 <span style={{"display":"block","fontSize":"14px","fontWeight":"500","color":"var(--ink)"}}>
-                  {"Martin Kilbride"}
+                  {"David Cox"}
                 </span>
                 <span style={{"display":"block","marginTop":"2px","fontSize":"12px","color":"var(--faint)"}}>
-                  {"Kilbride Group · Owner"}
+                  {"Managing Director · Demo"}
                 </span>
               </span>
             </div>
@@ -176,7 +186,11 @@ export default function AppShell({ v }: Props) {
         )}
         <div style={{"position":"absolute","left":"0","right":"0","bottom":"0","height":"64px","zIndex":"3","pointerEvents":"none","maskImage":"linear-gradient(0deg,#000 0%,transparent 100%)","WebkitMaskImage":"linear-gradient(0deg,#000 0%,transparent 100%)","background":"linear-gradient(0deg,var(--bg) 0%,rgba(0,0,0,0) 100%)","opacity":".85"}} />
         <div style={css(v.headerFieldStyle)} />
-        <header style={{"position":"relative","zIndex":"4","flex":"none","width":"100%","padding":"18px 28px","boxSizing":"border-box","borderBottom":"1px solid var(--border)"}}>
+        {mnav && <div className="tu-mnav-scrim" onClick={() => setMnav(false)} />}
+        <header className="tu-header" style={{"position":"relative","zIndex":"4","flex":"none","width":"100%","padding":"18px 28px","boxSizing":"border-box","borderBottom":"1px solid var(--border)"}}>
+          <button className="tu-mnav" aria-label={mnav ? "Close navigation" : "Open navigation"} aria-expanded={mnav} onClick={() => setMnav(!mnav)}>
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round"><path d="M4 6h16 M4 12h16 M4 18h16" /></svg>
+          </button>
           <div style={css(v.headerPillStyle)}>
             {v.isAgents && (
               <>
@@ -242,6 +256,7 @@ export default function AppShell({ v }: Props) {
                 </div>
               </>
             )}
+            <NewMenu />
             <div style={css(cat("flex:", v.searchWrapFlex, ";min-width:42px;display:flex;align-items:center;justify-content:center;padding:0 6px"))}>
               <button className="ix7" onClick={v.openPalette} title={v.searchHint} style={css(v.searchBarStyle)}>
                 <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" style={{"flex":"none"}}>
@@ -287,7 +302,7 @@ export default function AppShell({ v }: Props) {
                       </button>
                     </>
                   )}
-                  <button className="ix2" onClick={v.toggleNotifs} style={{"position":"relative","width":"42px","height":"42px","border":"0","borderRadius":"999px","background":"none","cursor":"pointer","color":"var(--dim)","display":"flex","alignItems":"center","justifyContent":"center","transition":"background .2s var(--ease),color .2s var(--ease)"}}>
+                  <button className="ix2" onClick={v.toggleNotifs} aria-label="Notifications" style={{"position":"relative","width":"42px","height":"42px","border":"0","borderRadius":"999px","background":"none","cursor":"pointer","color":"var(--dim)","display":"flex","alignItems":"center","justifyContent":"center","transition":"background .2s var(--ease),color .2s var(--ease)"}}>
                     <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round">
                       <path d="M6 8.5a6 6 0 0 1 12 0c0 6.5 2.6 8.5 2.6 8.5H3.4S6 15 6 8.5Z M10.3 20.5a1.94 1.94 0 0 0 3.4 0" />
                     </svg>
@@ -311,10 +326,10 @@ export default function AppShell({ v }: Props) {
                         <>
                           <div style={{"minWidth":"0"}}>
                             <div style={{"fontSize":"12px","fontWeight":"500","lineHeight":"1.2","whiteSpace":"nowrap"}}>
-                              {"Martin Kilbride"}
+                              {"David Cox"}
                             </div>
                             <div style={{"fontSize":"10.5px","color":"var(--faint)","lineHeight":"1.2"}}>
-                              {"Owner"}
+                              {"Managing Director"}
                             </div>
                           </div>
                         </>
@@ -345,15 +360,15 @@ export default function AppShell({ v }: Props) {
                   <span style={{"display":"flex","alignItems":"center","gap":"6px","height":"22px","padding":"0 9px","borderRadius":"8px","background":"var(--accent-faint)","border":"1px solid var(--accent-line)"}}>
                     <span style={{"width":"5px","height":"5px","borderRadius":"50%","background":"var(--accent)","animation":"breathe 1.8s ease-in-out infinite"}} />
                     <span style={{"fontFamily":"var(--mono)","fontSize":"9.5px","letterSpacing":"0.1em","color":"var(--accent)"}}>
-                      {txt(v.inboxCount)}
-                      {" OPEN"}
+                      {txt(v.notifUnread)}
+                      {" NEW"}
                     </span>
                   </span>
                 </div>
                 <div style={{"position":"relative","display":"flex","flexDirection":"column","gap":"7px","maxHeight":"min(58vh,440px)","overflowY":"auto","scrollbarWidth":"none"}}>
                   {arr(v.notifications).map((n: any, i3: number) => (
                     <Fragment key={i3}>
-                      <div className="ix9" style={css(n?.cardStyle)}>
+                      <div className="ix9" role="button" tabIndex={0} onClick={n?.open} onKeyDown={(e) => { if (e.key === "Enter") n?.open?.(); }} style={css(n?.cardStyle)}>
                         <span style={css(n?.washStyle)} />
                         <span style={css(n?.dotStyle)} />
                         <span style={{"position":"relative","flex":"1","minWidth":"0","display":"block"}}>
@@ -389,9 +404,10 @@ export default function AppShell({ v }: Props) {
         {v.isDashboard && <DashboardKpiBand v={v} />}
         <div data-scroll-main="1" style={{"flex":"1","minHeight":"0","overflowY":"auto","overflowX":"hidden","scrollbarWidth":"none"}}>
           {v.isChat && <Home v={v} />}
-          {v.isWork && <Work v={v} />}
+          <TurnuaModules v={v} />
           {v.isRecords && <Records v={v} />}
-          {v.rec?.isContacts && (
+          {v.isRecords && <TurnuaRecordsTab v={v} />}
+          {false && v.rec?.isContacts && (
             <>
               <div style={{"display":"flex","flexDirection":"column","gap":"14px"}}>
                 <div style={{"background":"var(--records-card)","border":"1px solid var(--border)","borderRadius":"var(--card-r,18px)","backdropFilter":"blur(20px)","boxShadow":"0 24px 60px rgba(0,0,0,.34)","overflow":"hidden"}}>
@@ -471,7 +487,7 @@ export default function AppShell({ v }: Props) {
           )}
           {v.rec?.isFiles && <RecordsFiles v={v} />}
           {v.rec?.isOntology && <RecordsOntology v={v} />}
-          {v.isActivity && <Activity v={v} />}
+
           {v.act?.detailOpen && (
             <>
               <div onClick={v.act?.closeDetail} style={{"position":"fixed","inset":"0","zIndex":"68","background":"var(--scrim)","backdropFilter":"blur(6px)","display":"flex","justifyContent":"flex-end"}}>
@@ -575,9 +591,7 @@ export default function AppShell({ v }: Props) {
               </div>
             </>
           )}
-          {v.isSettings && <Settings v={v} />}
-          {v.isDashboard && <Dashboard v={v} />}
-          {v.isAgents && <Agents v={v} />}
+          {v.isAgents && v.agentsDirectory && <Agents v={v} />}
         </div>
       </main>
       {v.showFab && (
@@ -820,6 +834,7 @@ export default function AppShell({ v }: Props) {
       {v.newRec?.open && <NewRecordDialog v={v} />}
       {v.paletteOpen && <CommandPalette v={v} />}
       {v.bgGallery?.open && <BackgroundGallery v={v} />}
+      <TurnuaOverlays v={v} />
     </div>
     </>
   );

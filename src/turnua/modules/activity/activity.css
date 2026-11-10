@@ -1,0 +1,10 @@
+/* Activity feed rows and audit tables. */
+.act-day{position:sticky;top:0;z-index:2;padding:9px 18px;font-size:11.5px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--dim);background:var(--surface-faint);border-bottom:1px solid var(--border);border-top:1px solid var(--border)}
+.act-day:first-child{border-top:0;border-radius:var(--card-r,20px) var(--card-r,20px) 0 0}
+.act-row{display:flex;gap:12px;align-items:flex-start;padding:12px 18px;border-top:1px solid var(--border)}
+.act-day + .act-row{border-top:0}
+.act-text{line-height:1.5;overflow-wrap:anywhere}
+.act-sys{width:28px;height:28px;flex:none;border-radius:999px;display:inline-flex;align-items:center;justify-content:center;background:var(--track);color:var(--dim)}
+.act-audit{margin-top:10px;border:1px solid var(--border);border-radius:10px;max-width:720px}
+.act-audit .tu-table th{position:static}
+.act-before{color:var(--dim);text-decoration:line-through;text-decoration-color:var(--neutral)}

@@ -103,7 +103,7 @@ export default function RecordsOntology({ v }: Props) {
           <div style={{"padding":"16px 18px","background":"var(--surface)","border":"1px solid var(--border)","borderRadius":"var(--card-r,18px)","backdropFilter":"blur(20px) saturate(1.3)","boxShadow":"var(--card-shadow)"}}>
             <div style={{"display":"flex","alignItems":"baseline","gap":"8px"}}>
               <span style={{"flex":"1","fontFamily":"var(--mono)","fontSize":"9px","letterSpacing":"0.13em","color":"var(--faint)"}}>
-                {"LIVE QUERIES"}
+                {"RECORD PATHS AND LIVE QUERIES"}
               </span>
               <span style={{"fontFamily":"var(--mono)","fontSize":"9px","color":"var(--faint)"}}>
                 {txt(v.graph?.running)}
@@ -112,7 +112,7 @@ export default function RecordsOntology({ v }: Props) {
             <div style={{"marginTop":"10px"}}>
               {arr(v.graph?.queries).map((q: any, i55: number) => (
                 <Fragment key={i55}>
-                  <div style={{"padding":"7px 0"}}>
+                  <div role={q?.open ? "button" : undefined} tabIndex={q?.open ? 0 : undefined} onClick={q?.open} onKeyDown={(e) => { if (e.key === "Enter" && q?.open) q.open(); }} title={q?.open ? "Open this record path" : undefined} style={{"padding":"7px 0","cursor":q?.open ? "pointer" : "default"}}>
                     <div style={{"display":"flex","alignItems":"center","gap":"8px"}}>
                       <span style={css(cat("width:7px;height:7px;flex:none;border-radius:2px;background:", q?.hue, ";box-shadow:0 0 8px ", q?.hue))} />
                       <span style={{"flex":"1","minWidth":"0","fontSize":"11.5px","color":"var(--body)","overflow":"hidden","textOverflow":"ellipsis","whiteSpace":"nowrap"}}>
