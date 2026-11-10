@@ -468,13 +468,15 @@ const NAV = [
   {label:"Home", icon:"helios", page:"Home"},
   {label:"Agents", icon:"navAgents", page:"Agents"},
   {label:"Dashboard", icon:"navDash", page:"Dashboard"},
+  {group:"Delivery"},
   {label:"Projects", icon:"navProjects", page:"Projects", badge:"projects"},
   {label:"Work", icon:"navWork", page:"Work", badge:"work"},
   {label:"Calendar", icon:"navCalendar", page:"Calendar"},
   {label:"People", icon:"navPeople", page:"People"},
+  {group:"Operations"},
   {label:"24/7 Helpdesk", icon:"navHelpdesk", page:"Helpdesk", badge:"helpdesk", urgent:true},
   {label:"Sites & Assets", icon:"navSites", page:"Sites"},
-  {divider:true},
+  {group:"Knowledge"},
   {label:"Records", icon:"navRecords", page:"Records"},
   {label:"Activity", icon:"pulseLine", page:"Activity"}
 ];

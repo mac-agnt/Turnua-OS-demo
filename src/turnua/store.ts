@@ -126,20 +126,48 @@ export function getDB(): DB { return db; }
 export function subscribe(fn: () => void): () => void { listeners.add(fn); return () => { listeners.delete(fn); }; }
 function emit() { listeners.forEach((fn) => fn()); }
 
+/* Undo: the last changes made in this tab, newest last. */
+const history: { db: DB; label: string }[] = [];
+const undoListeners = new Set<() => void>();
+let undoVersion = 0;
+function emitUndo() { undoVersion++; undoListeners.forEach((f) => f()); }
+
 /** Apply a mutation to a private copy, then publish it. */
 export function update(recipe: (draft: DB) => void): void {
   const draft = structuredClone(db);
   recipe(draft);
+  const label = draft.activity[0] && draft.activity[0] !== db.activity[0] ? draft.activity[0].text : "last change";
+  history.push({ db, label });
+  if (history.length > 25) history.shift();
   db = draft;
   persist();
   emit();
+  emitUndo();
+}
+
+/** Step back one change. Returns what was undone, or null. */
+export function undo(): string | null {
+  const last = history.pop();
+  if (!last) return null;
+  db = last.db;
+  persist();
+  emit();
+  emitUndo();
+  return last.label;
+}
+export function useUndo(): { can: boolean; label: string } {
+  useSyncExternalStore((f) => { undoListeners.add(f); return () => { undoListeners.delete(f); }; }, () => undoVersion, () => undoVersion);
+  const last = history[history.length - 1];
+  return { can: !!last, label: last ? last.label : "" };
 }
 
 export function resetDemo(): void {
   try { localStorage.removeItem(KEY); } catch { /* ignore */ }
   db = buildSeed(Date.now());
+  history.length = 0;
   persist();
   emit();
+  emitUndo();
 }
 
 export function useDB(): DB {

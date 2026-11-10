@@ -77,6 +77,7 @@ const REC_TAB_TO_SECTION = {ontology:"ontology", documents:"files", contacts:"co
 const REC_SECTION_TO_TAB = {ontology:"ontology", files:"documents", contacts:"contacts", register:"register", suppliers:"suppliers"};
 const ROUTE0 = getRoute();
 const PAGE0 = (moduleById(ROUTE0.module) || {page:"Home"}).page;
+const THEME0 = (() => { try { const t = localStorage.getItem("turnua-theme"); return t === "turnua-night" ? t : "turnua"; } catch (e) { return "turnua"; } })();
 
 /* ── Locked layout ──────────────────────────────────────────────────────────
    These two rules hold for every client build, whatever data.js says:
@@ -98,7 +99,7 @@ const NAV = (() => {
 
 /* All state and behaviour for Pulse. renderVals() returns the flat object the views render from. */
 export default class PulseLogic extends DCLogic {
-  state = { w: typeof window === "undefined" ? 1440 : window.innerWidth, theme:"turnua", page:PAGE0, draft:"", query:"", thread:[], typed:0, paletteOpen:false, showNotifs:false, palScope:"All", palSel:0, palRecent:["Hall 4","HD-4821"],
+  state = { w: typeof window === "undefined" ? 1440 : window.innerWidth, theme:THEME0, page:PAGE0, draft:"", query:"", thread:[], typed:0, paletteOpen:false, showNotifs:false, palScope:"All", palSel:0, palRecent:["Hall 4","HD-4821"],
             done:{}, resolved:{}, approved:{}, inboxFilter:"All", approvalFilter:"Awaiting you", open:null, range:"30d",
             workDoc:null, workDocTab:"work",
             queue:"mine", recordTab:"Overview", record:"person", hovered:null, hoverLabel:"", hoverHint:"", hoverTop:0,
@@ -114,7 +115,7 @@ export default class PulseLogic extends DCLogic {
             opsFilter:"all", opsOff:{}, opsOpen:null, opsScope:"week", opsDay:26, opsOrder:null, opsDrag:null,
             opsBuilderOpen:false, opsBuilderMode:"workflow", builderText:"", builderGenerated:false,
             railOpen:true, barOpen:true, chatRailPinned:false, widgetEdit:false, widgets:["inbox","work","visits","kpi","activity"],
-            kpiEdit:false, kpiKeys:["projects","ontrack","tasks","sla","crew"],
+            kpiEdit:false, kpiKeys:["projects","ontrack","tasks","sla","changes"],
             aspect:"sales", filterMenuOpen:false, customFilter:"", extraFilters:[],
             workWidget:"queue", miniOpen:false, miniThread:[], miniDraft:"", miniTab:"chat", miniTone:"plain", miniWorkOpen:"tasks",
             agents:TU.agentChat(), agentId:"briefing", groupNames:{}, agentQuery:"", agentDraft:"", agentExtra:{},
@@ -1303,6 +1304,7 @@ export default class PulseLogic extends DCLogic {
   }
   componentDidUpdate(){
     this.syncRailThumb();
+    if (this._savedTheme !== this.state.theme){ this._savedTheme = this.state.theme; try { localStorage.setItem("turnua-theme", this.state.theme); } catch (e) {} }
     // internal page changes (palette jumps, links) become real routes, so Back and Forward work
     const r = getRoute();
     const cur = moduleById(r.module);
@@ -1472,6 +1474,7 @@ export default class PulseLogic extends DCLogic {
       : "display:none";
     const nav = NAV.map((n, idx) => n.divider
       ? {isDivider:true, isItem:false}
+      : n.group ? {isGroup:true, isDivider:false, isItem:false, label:n.group}
       : {isItem:true, isDivider:false, label:n.label, d:ICONS[n.icon],
          hint: (() => { const b = TU.railBadge(n.badge); return railOpen && b ? b.text : ""; })(),
          dot: (() => { const b = TU.railBadge(n.badge); return !railOpen && !!b && b.urgent; })(),
@@ -3972,7 +3975,7 @@ export default class PulseLogic extends DCLogic {
         + ((contextNav.length <= 6 && (st.w - (st.railOpen ? 252 : 68) - 12) >= 780) ? "" : "width:fit-content;margin:0 auto;")
         + "background:var(--surface);border:1px solid var(--border);border-radius:999px;"
         + "backdrop-filter:blur(24px) saturate(1.4);-webkit-backdrop-filter:blur(24px) saturate(1.4);"
-        + "box-shadow:0 1px 0 rgba(255,255,255,.05) inset,0 10px 30px rgba(0,0,0,.28)",
+        + "box-shadow:var(--bar-shadow,0 1px 0 rgba(255,255,255,.05) inset,0 10px 30px rgba(0,0,0,.28))",
       headerStyle: "flex:none;display:grid;align-items:center;gap:14px;padding:14px 22px 12px;border-bottom:1px solid var(--border);"
         + "grid-template-columns:minmax(0,1fr) " + (mid ? "minmax(150px,340px)" : "44px") + " minmax(0,1fr)",
       barOpen: st.barOpen,
@@ -4046,14 +4049,14 @@ export default class PulseLogic extends DCLogic {
       // width and offset, so long labels, counts or an overflowing group can't
       // push the pill off the tab it belongs to.
       navThumb: "position:absolute;left:0;top:0;bottom:0;width:0;z-index:0;pointer-events:none;border-radius:999px;opacity:0;"
-        + "background-color:var(--surface-2);box-shadow:0 1px 0 rgba(255,255,255,.05) inset,0 4px 12px rgba(0,0,0,.35);"
-        + "background-image:linear-gradient(180deg,rgba(255,255,255,.22),rgba(255,255,255,0) 55%);background-blend-mode:overlay;"
+        + "background-color:var(--tab-thumb,var(--surface-2));box-shadow:var(--tab-thumb-shadow,0 1px 0 rgba(255,255,255,.05) inset,0 4px 12px rgba(0,0,0,.35));"
+        + "background-image:var(--tab-thumb-sheen,linear-gradient(180deg,rgba(255,255,255,.22),rgba(255,255,255,0) 55%));background-blend-mode:overlay;"
         + "transition:transform .46s cubic-bezier(.22,.9,.16,1),width .46s cubic-bezier(.22,.9,.16,1),opacity .2s",
       navThumbKey: contextNav.map(t => (t.active ? "*" : "") + t.label).join("|"),
       searchStyle: "height:38px;justify-self:center;min-width:0;" + (mid ? "width:100%;padding:0 8px 0 15px;" : "width:44px;justify-content:center;padding:0;"),
       // The bar is one row: the fewer sub-nav segments a page has, the more of the
       // leftover width the search field takes.
-      searchExpanded: contextNav.length <= 3 && (st.w - (st.railOpen ? 252 : 68) - 12) >= 780,
+      searchExpanded: (contextNav.length <= 3 && (st.w - (st.railOpen ? 252 : 68) - 12) >= 780) || (contextNav.length <= 4 && (st.w - (st.railOpen ? 252 : 68)) >= 1150),
       searchBarStyle: (() => {
         const segs = contextNav.length;
         // No min-width floor: when the sub-nav pill group is wide, the search
@@ -4069,7 +4072,7 @@ export default class PulseLogic extends DCLogic {
         return "flex:1 1 auto;width:100%;min-width:0;max-width:" + cap + "px;height:42px;"
           + "display:flex;align-items:center;gap:9px;padding:0 6px 0 15px;margin:0 2px;"
           + "background:var(--track);border:1px solid transparent;border-radius:999px;"
-          + "box-shadow:0 1px 2px rgba(0,0,0,.22) inset;"
+          + "box-shadow:var(--field-shadow,0 1px 2px rgba(0,0,0,.22) inset);"
           + "cursor:pointer;color:var(--body);"
           + "transition:border-color .2s var(--ease),color .2s var(--ease),background .2s var(--ease),max-width .3s var(--ease)";
       })(),
@@ -4393,7 +4396,7 @@ export default class PulseLogic extends DCLogic {
     const home = TU.homeVals();
     const ask = (q) => () => this.ask(q);
     Object.assign(v, {
-      greetingPrefix: home.greetingPrefix, greetingName: home.greetingName, homeSubline: home.homeSubline,
+      greetingPrefix: home.greetingPrefix + ",", greetingName: home.greetingName, showHint: false, homeSubline: home.homeSubline,
       approvalsPill: home.approvalsPill, homeEyebrow: home.homeEyebrow,
       goApprovals: () => tuNavigate("/work/approvals"),
       inboxTop: home.inboxTop, inboxCount: home.inboxCount, inboxEmpty: home.inboxEmpty,

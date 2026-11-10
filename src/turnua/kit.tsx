@@ -1,8 +1,9 @@
 /* Shared Turnua OS components, built on the Pulse tokens (turnua.css). */
 import { useEffect, useRef, useState, type ReactNode, type CSSProperties, type KeyboardEvent as RKE } from "react";
 import type { DB, Health, ID, Person } from "./types";
-import { useDB } from "./store";
-import { closeOverlay, navigate, openApproval, openDoc, openEvent, openRecord, openTask, openTicket } from "./ui";
+import { useDB, useClock } from "./store";
+import { closeOverlay, navigate, openApproval, openDoc, openEvent, openRecord, openTask, openTicket, useRoute, moduleById } from "./ui";
+import { fmtDate, hhmm } from "./time";
 import { labelOf } from "./selectors";
 
 /* ── icons: same stroke system as the Pulse rail icons ───────────── */
@@ -52,6 +53,15 @@ export function Icon({ name, size = 15, stroke = 1.7, style }: { name: string; s
 
 /* ── layout ──────────────────────────────────────────────────────── */
 export function Page({ title, sub, actions, crumbs, children, eyebrow }: { title: ReactNode; sub?: ReactNode; actions?: ReactNode; crumbs?: { label: string; to?: string }[]; children: ReactNode; eyebrow?: ReactNode }) {
+  const route = useRoute();
+  const now = useClock();
+  const mod = moduleById(route.module);
+  const tab = mod?.tabs.find((t) => t.id === route.tab);
+  const minute = new Date(Math.floor(now / 60000) * 60000).toISOString();
+  // every page opens with where you are and when, as in a real operations console
+  const stamp = fmtDate(minute) + " · " + hhmm(minute);
+  if (!eyebrow && !crumbs) eyebrow = (mod ? mod.label : "") + (tab ? " · " + tab.label : "") + " · " + stamp;
+  else if (typeof eyebrow === "string") eyebrow = eyebrow + " · " + stamp;
   return (
     <div className="tu tu-page">
       {crumbs && (

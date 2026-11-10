@@ -266,7 +266,7 @@ function DayColumn({ day, occ, isToday, nowTop }: { day: string; occ: Occurrence
       })}
       {bands.map((b, i) => {
         const c = colourOf(db, b.o);
-        const style: CSSProperties = { top: b.top * PX_PER_MIN, height: (b.bottom - b.top) * PX_PER_MIN, color: c, background: "color-mix(in oklab, " + c + " 5%, transparent)" };
+        const style: CSSProperties = { top: b.top * PX_PER_MIN, height: (b.bottom - b.top) * PX_PER_MIN, color: c, background: "transparent" };
         return (
           <div key={b.o.key} className="cal-band" style={style}>
             <button className="cal-band-lbl" style={{ top: 2 + i * 18, background: tint(c, 34) }} onClick={() => openOverlay({ kind: "event", id: b.o.eventId, date: b.o.date })}

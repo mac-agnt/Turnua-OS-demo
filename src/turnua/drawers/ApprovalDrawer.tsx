@@ -39,9 +39,9 @@ export function ApprovalDrawer({ ok, id }: { ok: string; id: ID }) {
         </>
       ) : (
         <>
-          <span className="tu-grow tu-small tu-muted">Approver: David Cox</span>
-          <Btn kind="danger" onClick={() => setConfirm("Rejected")}>Reject</Btn>
-          <Btn kind="primary" icon="check" onClick={() => setConfirm("Approved")}>Approve</Btn>
+          <span className="tu-grow tu-small tu-muted">{(db.settings.rolePreview || "MD") === "MD" ? "Approver: David Cox" : "Previewing as another role: approvals are read only"}</span>
+          <Btn kind="danger" disabled={(db.settings.rolePreview || "MD") !== "MD"} onClick={() => setConfirm("Rejected")}>Reject</Btn>
+          <Btn kind="primary" icon="check" disabled={(db.settings.rolePreview || "MD") !== "MD"} onClick={() => setConfirm("Approved")}>Approve</Btn>
         </>
       )}>
       <KV items={[

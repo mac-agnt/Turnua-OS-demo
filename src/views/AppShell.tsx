@@ -22,6 +22,7 @@ import BackgroundGallery from "./overlays/BackgroundGallery";
 import TurnuaModules, { TurnuaRecordsTab } from "../turnua/modules/Router";
 import TurnuaOverlays from "../turnua/Overlays";
 import NewMenu from "../turnua/NewMenu";
+import DemoBar from "../turnua/DemoBar";
 
 type Props = { v: any };
 
@@ -39,16 +40,22 @@ export default function AppShell({ v }: Props) {
       <nav data-rail-nav="1" style={css(v.railOuter)}>
         <span style={css(v.railThumbStyle)} />
         <div style={css(cat(v.railRowStyle, "margin-bottom:22px"))}>
-          <button className={cx("ix0", "ix1")} onClick={v.toggleRail} title={v.railLabel} style={{"width":"36px","height":"36px","flex":"none","border":"0","borderRadius":"var(--cta-r,11px)","background":"var(--accent-fill,var(--accent))","color":"var(--on-accent)","boxShadow":"var(--accent-glow,none)","cursor":"pointer","display":v.railOpen ? "none" : "flex","alignItems":"center","justifyContent":"center","fontSize":"13px","fontWeight":"600","padding":"0","transition":"transform .2s var(--ease)"}} aria-label="Expand sidebar">
+          <button className={cx("ix0", "ix1")} onClick={v.toggleRail} title={v.railLabel} style={{"width":"36px","height":"36px","flex":"none","border":"0","borderRadius":"var(--cta-r,11px)","background":"#0B1630","color":"#fff","boxShadow":"inset 0 0 0 1px rgba(255,255,255,.08)","cursor":"pointer","display":v.railOpen ? "none" : "flex","alignItems":"center","justifyContent":"center","fontSize":"13px","fontWeight":"600","padding":"0","transition":"transform .2s var(--ease)"}} aria-label="Expand sidebar">
             <img src="/turnua-mark.svg" alt="Turnua" width={14} height={17} style={{"display":"block"}} />
           </button>
           <span style={css(v.brandStyle)}>
-            <span style={{"display":"flex","alignItems":"center","gap":"8px"}}>
-              <img src="/turnua-logo.svg" alt="Turnua" width={97} height={17} style={{"display":"block","flex":"none"}} />
-              <span style={{"fontSize":"15px","fontWeight":"600","letterSpacing":"-.2px","color":"var(--ink)","lineHeight":"1"}}>{"OS"}</span>
-            </span>
-            <span style={{"display":"block","marginTop":"6px","fontSize":"9px","fontWeight":"600","letterSpacing":".16em","color":"var(--accent)"}}>
-              {"OPERATIONS PLATFORM"}
+            <span style={{"display":"flex","alignItems":"center","gap":"11px"}}>
+              <span className="tu-marktile"><img src="/turnua-mark.svg" alt="" width={14} height={17} style={{"display":"block"}} /></span>
+              <span style={{"display":"block","minWidth":"0"}}>
+                <span style={{"display":"flex","alignItems":"center","gap":"7px"}}>
+                  <img className="tu-logo-dark" src="/turnua-logo.svg" alt="Turnua" width={86} height={15} style={{"flex":"none"}} />
+                  <img className="tu-logo-light" src="/turnua-logo-dark.svg" alt="Turnua" width={86} height={15} style={{"flex":"none"}} />
+                  <span style={{"fontSize":"14px","fontWeight":"700","letterSpacing":"-.2px","color":"var(--ink)","lineHeight":"1"}}>{"OS"}</span>
+                </span>
+                <span style={{"display":"block","marginTop":"5px","fontSize":"8.5px","fontWeight":"600","letterSpacing":".1em","color":"var(--accent)","whiteSpace":"nowrap"}}>
+                  {"OPERATIONS PLATFORM"}
+                </span>
+              </span>
             </span>
           </span>
           {v.railOpen && (
@@ -61,8 +68,10 @@ export default function AppShell({ v }: Props) {
             </>
           )}
         </div>
+        {v.railOpen && <div className="tu-navgroup">{"Command"}</div>}
         {arr(v.nav).map((item: any, i0: number) => (
           <Fragment key={i0}>
+            {item?.isGroup && (v.railOpen ? <div className="tu-navgroup">{item.label}</div> : <div style={{"width":"20px","height":"1px","background":"var(--track)","margin":"9px 0"}} />)}
             {item?.isDivider && (
               <>
                 <div style={{"width":"20px","height":"1px","background":"var(--track)","margin":"7px 0"}} />
@@ -70,7 +79,7 @@ export default function AppShell({ v }: Props) {
             )}
             {item?.isItem && (
               <>
-                <button className="ix3" data-rail={item?.railKey} onClick={item?.go} onPointerEnter={item?.enter} onPointerLeave={item?.leave} style={css(item?.style)}>
+                <button className="ix3" aria-label={item?.label + (item?.hint ? ", " + item.hint : "")} aria-current={item?.railKey === "active" ? "page" : undefined} data-rail={item?.railKey} onClick={item?.go} onPointerEnter={item?.enter} onPointerLeave={item?.leave} style={css(item?.style)}>
                   <span style={{"position":"relative","flex":"none","width":"17px","height":"17px","display":"flex","alignItems":"center","justifyContent":"center"}}>
                     <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" style={css(item?.glyphStyle)}>
                       <path d={item?.d} />
@@ -346,6 +355,7 @@ export default function AppShell({ v }: Props) {
             </button>
           </div>
         </header>
+        <DemoBar v={v} />
         {v.showNotifs && (
           <>
             <div onClick={v.closeNotifs} style={{"position":"fixed","inset":"0","zIndex":"58","background":"rgba(0,0,0,.28)","backdropFilter":"blur(3px)","animation":"notifScrim .4s var(--ease) both"}} />

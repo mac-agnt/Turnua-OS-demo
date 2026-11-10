@@ -139,6 +139,7 @@ export function createTask(fields: Partial<Task> & { title: string; projectId: I
 export function decideApproval(id: ID, decision: "Approved" | "Rejected", note = ""): boolean {
   const ap0 = getDB().approvals.find((a) => a.id === id);
   if (!ap0) return false;
+  if ((getDB().settings.rolePreview || "MD") !== "MD") { toast("Previewing as another role: only the Managing Director can decide approvals. Switch back in the demo bar.", "warn"); return false; }
   if (ap0.status !== "Pending") { toast(id + " was already " + ap0.status.toLowerCase(), "warn"); return false; }
   update((d) => {
     const ap = d.approvals.find((a) => a.id === id)!;
