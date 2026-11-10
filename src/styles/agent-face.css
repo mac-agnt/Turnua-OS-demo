@@ -1,0 +1,11 @@
+/* Agent faces are flat and evenly lit. Dark themes get a pale shell with deep
+   eyes, light themes the reverse; both come from the agent's own tint pair. */
+[data-agent-orb] .ao-body{fill:var(--ao-pale)}
+[data-agent-orb] .ao-eye{fill:var(--ao-tint)}
+:is([data-theme="light"],[data-theme="warm"],[data-theme="mist"],[data-theme="sand"]) [data-agent-orb] .ao-body{fill:var(--ao-tint)}
+:is([data-theme="light"],[data-theme="warm"],[data-theme="mist"],[data-theme="sand"]) [data-agent-orb] .ao-eye{fill:var(--ao-pale)}
+
+/* A working or thinking agent's status light breathes; the rest hold still. */
+@keyframes agentLight{0%,100%{opacity:1}50%{opacity:.42}}
+[data-agent-light="live"]{animation:agentLight 2.4s cubic-bezier(.45,0,.55,1) infinite}
+@media (prefers-reduced-motion:reduce){[data-agent-light]{animation:none !important}}
