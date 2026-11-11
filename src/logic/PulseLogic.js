@@ -1482,7 +1482,7 @@ export default class PulseLogic extends DCLogic {
            + ";width:7px;height:7px;border-radius:50%;background:#E5484D",
          inlineStyle: inlineStyle(st.railHov === idx, n.page === page),
          hintStyle: "flex:none;min-width:20px;height:18px;padding:0 6px;border-radius:999px;display:inline-flex;align-items:center;justify-content:center;font-size:10.5px;font-weight:600;font-variant-numeric:tabular-nums;white-space:nowrap;"
-           + ((TU.railBadge(n.badge) || {}).urgent ? "background:#E5484D;color:#fff" : "background:rgba(255,255,255,.1);color:var(--body)"),
+           + ((TU.railBadge(n.badge) || {}).urgent ? "background:#D93A32;color:#fff" : "background:var(--track);color:var(--dim)"),
          active: n.page === page,
          railKey: n.page === page ? "active" : "idle",
          glyphStyle: glyphStyle(n.page === page, st.hovered === idx || st.railHov === idx),
@@ -4411,7 +4411,7 @@ export default class PulseLogic extends DCLogic {
       composerPrompts: home.suggestions.slice(0, 3).map((q, i) => ({label:q, tag:["PROJECTS","PEOPLE","CREDENTIALS"][i], icon:ICONS.helios, run: ask(q),
         rowStyle: "display:flex;align-items:center;gap:13px;width:100%;padding:10px 14px;background:none;border:0;" + (i ? "border-top:1px solid var(--border);" : "")
           + "color:var(--body);font-size:13.5px;text-align:left;cursor:pointer;transition:background .18s var(--ease),color .18s var(--ease)"})),
-      team: [{i:"DC",bg:"#16C6D8"},{i:"GD",bg:"#8B9CF7"},{i:"CM",bg:"#F0A35E"}],
+      team: [{i:"DC",bg:"#DBFF00"},{i:"GD",bg:"#C5B5E6"},{i:"CM",bg:"#E7A387"}],
       fabTitle: st.miniOpen ? "Close Ask Turnua OS" : "Ask Turnua OS",
       showFab: page !== "Home" && page !== "Agents",
       agentsDirectory: getRoute().module === "agents" && getRoute().tab === "directory",

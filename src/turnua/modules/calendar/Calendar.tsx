@@ -22,7 +22,7 @@ export const TYPE_ICON: Record<EventType, string> = {
 type View = "day" | "week" | "month";
 
 function colourOf(db: ReturnType<typeof useDB>, o: { ownerId: ID }) {
-  return db.people.find((p) => p.id === o.ownerId)?.color || "#9AA6BF";
+  return db.people.find((p) => p.id === o.ownerId)?.color || "#A0A49D";
 }
 function tint(c: string, pctv: number) { return "color-mix(in oklab, " + c + " " + pctv + "%, var(--surface))"; }
 

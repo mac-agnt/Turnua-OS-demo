@@ -197,7 +197,7 @@ export function TaskDrawer({ ok, id }: { ok: string; id: ID }) {
               placeholder="Write a comment. Type @ to mention someone." onChange={(e) => setComment(e.target.value)}
               onKeyDown={(e) => { if (e.key === "Enter" && (e.metaKey || e.ctrlKey)) post(); if (e.key === "Enter" && mentionHits.length && !e.shiftKey) { e.preventDefault(); pickMention(mentionHits[0].id); } }} />
             {mentionHits.length > 0 && (
-              <div className="tu-card" role="listbox" aria-label="Mention someone" style={{ position: "absolute", left: 0, bottom: "100%", marginBottom: 6, zIndex: 3, width: 280, padding: 4, boxShadow: "0 12px 30px rgba(8,19,42,.18)" }}>
+              <div className="tu-card" role="listbox" aria-label="Mention someone" style={{ position: "absolute", left: 0, bottom: "100%", marginBottom: 6, zIndex: 3, width: 280, padding: 4, boxShadow: "0 12px 30px rgba(22,24,28,.18)" }}>
                 {mentionHits.map((x) => (
                   <button key={x.id} role="option" aria-selected={false} className="tu-rowbtn" style={{ borderTop: 0, padding: "7px 10px" }} onClick={() => pickMention(x.id)}>
                     <Avatar person={x} size={22} /><span className="tu-grow">{x.name}</span><span className="tu-small tu-faint">{x.role}</span>

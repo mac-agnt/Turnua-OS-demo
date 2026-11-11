@@ -13,6 +13,6 @@
 .ag-switch:focus-visible{outline:2px solid var(--accent-fill);outline-offset:3px;border-radius:999px}
 .ag-track{position:relative;width:36px;height:20px;border-radius:999px;background:var(--track);border:1px solid var(--border-strong);transition:background .18s var(--ease)}
 .ag-track[data-on="1"]{background:var(--accent-fill);border-color:transparent}
-.ag-knob{position:absolute;top:2px;left:2px;width:14px;height:14px;border-radius:50%;background:var(--surface);box-shadow:0 1px 3px rgba(8,19,42,.3);transition:transform .18s var(--ease)}
+.ag-knob{position:absolute;top:2px;left:2px;width:14px;height:14px;border-radius:50%;background:var(--surface);box-shadow:0 1px 3px rgba(22,24,28,.3);transition:transform .18s var(--ease)}
 .ag-track[data-on="1"] .ag-knob{transform:translateX(16px)}
 @media (prefers-reduced-motion: reduce){.ag-track,.ag-knob{transition:none}}

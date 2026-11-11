@@ -320,7 +320,7 @@ function Delivery({ db }: { db: DB }) {
 
       <div style={{ marginTop: 14 }}>
         <Card title="Milestone calendar" sub={"Eight weeks from " + fmtKey(mon) + ". Late and conditional milestones are marked."}
-          right={<div className="db-legend"><span><i style={{ background: "var(--bad)" }} />Late</span><span><i style={{ background: "var(--warn)" }} />Conditional</span><span><i style={{ background: "var(--accent-fill)" }} />Upcoming</span><span><i style={{ background: "#08132A" }} />Handover</span></div>}>
+          right={<div className="db-legend"><span><i style={{ background: "var(--bad)" }} />Late</span><span><i style={{ background: "var(--warn)" }} />Conditional</span><span><i style={{ background: "var(--accent-fill)" }} />Upcoming</span><span><i style={{ background: "#16181C" }} />Handover</span></div>}>
           <div className="db-weeks">
             {weeks.map((w, i) => {
               const end = addDays(w, 7);
@@ -443,7 +443,7 @@ function Commercials({ db }: { db: DB }) {
 
       <div className="tu-split" style={{ marginTop: 14 }}>
         <Card title="Cost against progress" sub="Works contracts. Burn is cost divided by the contract baseline, not a margin."
-          right={<div className="db-legend"><span><i style={{ background: "var(--accent-fill)" }} />Physical progress</span><span><i style={{ background: "var(--warn)" }} />Cost burn</span></div>}>
+          right={<div className="db-legend"><span><i style={{ background: "var(--bar)" }} />Physical progress</span><span><i style={{ background: "var(--warn)" }} />Cost burn</span></div>}>
           <div className="db-bars">
             {works.map((p) => {
               const b = burn(p) || 0;
@@ -453,7 +453,7 @@ function Commercials({ db }: { db: DB }) {
                 <button key={p.id} className="db-bar-row" style={{ alignItems: "start" }} onClick={() => goOverview(p.id)} aria-label={p.short + ": progress " + pct(p.progress) + ", burn " + pct(b)}>
                   <span><span className="db-bar-label" style={{ display: "block" }}>{p.short}</span><span className="tu-small tu-faint">{eurShort(p.contractValue || 0)}{approvedVariations(db, p.id) ? " + " + eurShort(approvedVariations(db, p.id)) + " approved" : ""}</span></span>
                   <span className="db-pair">
-                    <span className="db-bar-track"><i style={{ width: p.progress * 100 + "%", background: "var(--accent-fill)" }} /></span>
+                    <span className="db-bar-track"><i style={{ width: p.progress * 100 + "%", background: "var(--bar)" }} /></span>
                     <span className="db-bar-track"><i style={{ width: b * 100 + "%", background: "var(--warn)" }} /></span>
                     <span className="tu-small tu-muted">{pct(p.progress)} progress · {pct(b)} burn · EV {eurShort(ev)} · EV less cost {ev - (p.cost || 0) < 0 ? "−" : ""}{eurShort(Math.abs(ev - (p.cost || 0)))}</span>
                   </span>

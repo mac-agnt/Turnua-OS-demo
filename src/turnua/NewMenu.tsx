@@ -35,7 +35,7 @@ export default function NewMenu() {
         <Icon name="plus" size={15} stroke={2.2} /><span className="tu-newlabel">New</span>
       </button>
       {open && (
-        <div role="menu" aria-label="Create new" className="tu-card" style={{ position: "fixed", right: pos.right, top: pos.top, zIndex: 70, width: 240, padding: 6, boxShadow: "0 18px 50px rgba(8,19,42,.22)" }}>
+        <div role="menu" aria-label="Create new" className="tu-card" style={{ position: "fixed", right: pos.right, top: pos.top, zIndex: 70, width: 240, padding: 6, boxShadow: "0 18px 50px rgba(22,24,28,.22)" }}>
           {ITEMS.map((i, n) => (
             <button key={i.what} role="menuitem" autoFocus={n === 0} className="tu-rowbtn" style={{ borderTop: 0, borderRadius: 10, padding: "9px 10px" }}
               onClick={() => { setOpen(false); openNew(i.what); }}>

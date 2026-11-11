@@ -27,7 +27,7 @@ export function DocDrawer({ ok, id }: { ok: string; id: ID }) {
       footer={<><span className="tu-grow tu-small tu-muted">Preview of a seeded demo document. Download gives a mock text copy.</span><Btn icon="dl" onClick={exp}>Download</Btn>{d.projectId && <Btn kind="navy" onClick={() => openRef("project", d.projectId!)}>Open project</Btn>}</>}>
       <KV items={[["Version", d.version], ["Owner", <PersonLink id={d.ownerId} />], ["Updated", fmtDate(d.updatedAt)], ["Review", d.reviewAt ? fmtDate(d.reviewAt) : "Not set"]]} />
       <Section title="Preview">
-        <article style={{ background: "var(--surface)", border: "1px solid var(--border)", borderRadius: 12, padding: "22px 26px", lineHeight: 1.65, boxShadow: "0 8px 30px rgba(8,19,42,.06)" }}>
+        <article style={{ background: "var(--surface)", border: "1px solid var(--border)", borderRadius: 12, padding: "22px 26px", lineHeight: 1.65, boxShadow: "0 8px 30px rgba(22,24,28,.06)" }}>
           <div className="tu-row" style={{ marginBottom: 14 }}>
             <img src="/turnua-mark.svg" alt="" width={12} height={15} style={{ filter: "brightness(.25)" }} />
             <span className="tu-eyebrow">Turnua · {d.type}</span><span className="tu-grow" /><span className="tu-small tu-faint">{d.version}</span>

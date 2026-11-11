@@ -80,7 +80,7 @@ export default function TurnuaOverlays({ v }: { v: any }) {
             <span className="tu-dot" />
             <span style={{ flex: 1, minWidth: 0 }}>{t.text}</span>
             {t.action && <button onClick={() => { t.action!.run(); dismissToast(t.id); }}>{t.action.label}</button>}
-            <button aria-label="Dismiss" onClick={() => dismissToast(t.id)} style={{ color: "#9AA6BF" }}>×</button>
+            <button aria-label="Dismiss" onClick={() => dismissToast(t.id)} style={{ color: "#A0A49D" }}>×</button>
           </div>
         ))}
       </div>

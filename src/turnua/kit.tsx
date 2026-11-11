@@ -170,11 +170,11 @@ export function Progress({ value, tone, label }: { value: number; tone?: "ok" | 
   return <div className={"tu-prog " + (tone || "")} role="progressbar" aria-valuenow={Math.round(v * 100)} aria-valuemin={0} aria-valuemax={100} aria-label={label}><i style={{ width: v * 100 + "%" }} /></div>;
 }
 export const TAG_COLOR: Record<string, string> = {
-  Civils: "#F0A35E", Permits: "#8B9CF7", Safety: "#E86C7A", Splicing: "#5FD3A1", QA: "#16C6D8",
-  PPM: "#7BC4F2", Commercial: "#D9A97A", Procurement: "#C38BEB", Client: "#9CCB62", Design: "#F2C14E",
+  Civils: "#D9895F", Permits: "#9B86D6", Safety: "#E06C6C", Splicing: "#6FB27A", QA: "#B9D600",
+  PPM: "#7FA6C4", Commercial: "#C9A15A", Procurement: "#B48AC9", Client: "#8FB34A", Design: "#D8B24A",
 };
 export function Tag({ tag }: { tag: string }) {
-  const c = TAG_COLOR[tag] || "#9AA6BF";
+  const c = TAG_COLOR[tag] || "#A0A49D";
   return <span className="tu-tag" style={{ background: c + "2E", color: "color-mix(in oklab," + c + " 55%, var(--ink))" }}>{tag}</span>;
 }
 export const PRIORITY_TONE: Record<string, "bad" | "warn" | "" | "outline"> = { Urgent: "bad", High: "warn", Normal: "", Low: "outline" };

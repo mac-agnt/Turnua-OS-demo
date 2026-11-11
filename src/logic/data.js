@@ -1002,7 +1002,7 @@ const FACE_TINTS = [
 
 /* ---- ontology graph: generation, Dijkstra traversal, canvas render ---- */
 const CLUSTERS = [
-  ["Clients",       "#16c6d8", 0.00, 0.62, 46],
+  ["Clients",       "#DBFF00", 0.00, 0.62, 46],
   ["People",        "#8b9cf7", 0.90, 0.70, 52],
   ["Documents",     "#c38beb", 1.75, 0.66, 58],
   ["Tasks",         "#f2c14e", 2.55, 0.72, 44],

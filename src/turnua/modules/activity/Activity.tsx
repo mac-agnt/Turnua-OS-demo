@@ -21,7 +21,7 @@ function Actor({ a, db }: { a: Activity; db: DB }) {
   if (a.actorType === "person") return <Avatar person={db.people.find((p) => p.id === a.actorId)} size={28} />;
   if (a.actorType === "agent") {
     const ag = db.agents.find((x) => x.id === a.actorId);
-    return <AgentFace shape={ag?.shape || "crown-pebble"} state="complete" tint={ag?.tint || "#08132a"} size="28" />;
+    return <AgentFace shape={ag?.shape || "crown-pebble"} state="complete" tint={ag?.tint || "#16181C"} size="28" />;
   }
   return <span className="act-sys" aria-hidden="true"><Icon name={a.actorType === "workflow" ? "bolt" : "sync"} size={14} /></span>;
 }

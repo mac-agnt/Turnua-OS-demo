@@ -6,7 +6,7 @@ import type {
 } from "./types";
 import { addDays, at, endOfDay, keyOf, weekdayOf, mondayOf, fmtKey } from "./time";
 
-export const DATA_VERSION = 5;
+export const DATA_VERSION = 6;
 export const SLA_TARGET: Record<TicketPriority, number> = { P1: 60, P2: 240, P3: 1440, P4: 2880 };
 
 /** Small deterministic PRNG so 344 assets and 212 jobs come out the same on every reset. */
@@ -64,29 +64,29 @@ export function buildSeed(now: number): DB {
   };
   const people: Person[] = [
     P("P01", "David Cox", "Managing Director", "TM-LEAD", "In office", "CI Hub, Naas", "CI Hub, Naas", null, null, "Ext. 201",
-      ["Executive sponsorship", "Client relationships", "Commercial approval", "Critical infrastructure strategy"], "#16C6D8", "MD"),
+      ["Executive sponsorship", "Client relationships", "Commercial approval", "Critical infrastructure strategy"], "#DBFF00", "MD"),
     P("P02", "Gillian Daly", "Lead Strategist", "TM-LEAD", "In a meeting", "CI Hub, Naas", "CI Hub, Naas", null, "P01", "Ext. 202",
-      ["Strategy", "Programme governance", "AI build space planning", "Stakeholder reporting"], "#8B9CF7", "Strategy"),
+      ["Strategy", "Programme governance", "AI build space planning", "Stakeholder reporting"], "#C5B5E6", "Strategy"),
     P("P03", "Ciarán Murphy", "Senior PM, Civils", "TM-PD", "On site", "Rathdrum Works", "Naas", 2015, "P01", "Ext. 214",
-      ["Civils delivery", "Utility diversions", "Contract administration", "Programme recovery", "Chapter 8 traffic management"], "#F0A35E", "PM"),
+      ["Civils delivery", "Utility diversions", "Contract administration", "Programme recovery", "Chapter 8 traffic management"], "#E7A387", "PM"),
     P("P04", "Aoife Brennan", "Fibre PM", "TM-FT", "On site", "Kildare FTTH Cluster", "Naas", 2018, "P01", "Ext. 221",
-      ["FTTH delivery", "Network acceptance", "Splicing QA", "Client reporting"], "#5FD3A1", "PM"),
+      ["FTTH delivery", "Network acceptance", "Splicing QA", "Client reporting"], "#A6CDA0", "PM"),
     P("P05", "Paul O’Neill", "Critical Facilities Lead", "TM-CF", "On call", "Landing Station 1", "Naas", 2014, "P01", "Ext. 231",
-      ["UPS and battery systems", "Cooling systems", "Generator systems", "Incident command", "Electrical"], "#E86C7A", "Engineer"),
+      ["UPS and battery systems", "Cooling systems", "Generator systems", "Incident command", "Electrical"], "#E8A1AE", "Engineer"),
     P("P06", "Conor Walsh", "Data Centre Engineer", "TM-CF", "On site", "Hall 4, Dublin 15", "Dublin 15", 2019, "P05", "Ext. 232",
-      ["Structured cabling", "Containment", "Rack and grounding", "Fibre polarity testing", "Working at height", "Electrical"], "#F2C14E", "Engineer"),
+      ["Structured cabling", "Containment", "Rack and grounding", "Fibre polarity testing", "Working at height", "Electrical"], "#E8CB86", "Engineer"),
     P("P07", "Seán Keane", "Fibre Splicing Supervisor", "TM-FT", "On site", "Kildare FTTH Cluster", "Naas", 2016, "P04", "Ext. 222",
-      ["Fusion splicing", "OTDR testing", "Cabinet build", "Crew supervision"], "#7BC4F2", "Engineer"),
+      ["Fusion splicing", "OTDR testing", "Cabinet build", "Crew supervision"], "#A6C4D9", "Engineer"),
     P("P08", "Niamh Byrne", "HSEQ Manager", "TM-HSEQ", "On site", "Rathdrum Works", "Naas", 2017, "P01", "Ext. 241",
-      ["RAMS review", "Site audits", "Incident investigation", "First aid", "Quality inspection"], "#C38BEB", "HSEQ"),
+      ["RAMS review", "Site audits", "Incident investigation", "First aid", "Quality inspection"], "#F2C29A", "HSEQ"),
     P("P09", "Eoin Kelly", "Site Engineer", "TM-PD", "On site", "DLR works corridor", "Naas", 2021, "P03", "Ext. 215",
-      ["Setting out", "Chamber construction", "Duct installation", "Permit coordination", "Chapter 8 traffic management"], "#9CCB62", "Engineer"),
+      ["Setting out", "Chamber construction", "Duct installation", "Permit coordination", "Chapter 8 traffic management"], "#C6D86A", "Engineer"),
     P("P10", "Sarah Doyle", "Planner & Scheduler", "TM-PLAN", "In office", "CI Hub, Naas", "Naas", 2019, "P01", "Ext. 251",
-      ["Programme planning", "Crew scheduling", "Dependency tracking", "Client programmes"], "#F08BC1", "Planner"),
+      ["Programme planning", "Crew scheduling", "Dependency tracking", "Client programmes"], "#C4C8C1", "Planner"),
     P("P11", "Liam Fitzgerald", "Night Helpdesk Engineer", "TM-CF", "On call", "Remote support", "Remote", 2022, "P05", "Ext. 233",
-      ["Remote monitoring", "Alarm triage", "UPS and battery systems", "Escalation"], "#6F8FE8", "Engineer"),
+      ["Remote monitoring", "Alarm triage", "UPS and battery systems", "Escalation"], "#A3B2C0", "Engineer"),
     P("P12", "Róisín Nolan", "Commercial Manager", "TM-COM", "On leave", "Annual leave", "Naas", 2017, "P01", "Ext. 261",
-      ["Cost control", "Change control", "Valuations", "Supplier commercial"], "#D9A97A", "Commercial", 24),
+      ["Cost control", "Change control", "Valuations", "Supplier commercial"], "#9ECBC2", "Commercial", 24),
   ];
 
   const A = (personId: string, projectId: string | null, label: string, hours: number) =>
@@ -830,7 +830,7 @@ export function buildSeed(now: number): DB {
   /* ── agents and seeded run history ───────────────────────────────── */
   const agents = [
     { id: "briefing", name: "Briefing", purpose: "Writes the MD’s morning briefing from live records, with the decisions that need David.", trigger: "Weekdays 07:00, or Run now", schedule: "Weekdays 07:00",
-      inputs: ["Projects", "Approvals", "Helpdesk tickets", "Calendar", "Change requests"], boundaries: ["Read only", "Creates a briefing record and suggested links", "Never sends email"], shape: "crown-pebble", tint: "#08132a", enabled: true },
+      inputs: ["Projects", "Approvals", "Helpdesk tickets", "Calendar", "Change requests"], boundaries: ["Read only", "Creates a briefing record and suggested links", "Never sends email"], shape: "crown-pebble", tint: "#16181C", enabled: true },
     { id: "watchdog", name: "Ops Watchdog", purpose: "Watches overdue work, blocked permits, dependencies, SLA deadlines and missing owners.", trigger: "On record change, or manual scan", schedule: "Continuous (demo: on change)",
       inputs: ["Tasks", "Permits", "Dependencies", "SLA timers", "Owners"], boundaries: ["Proposes escalations and tasks", "No duplicate alerts for the same open issue"], shape: "shield", tint: "#1b2430", enabled: true },
     { id: "recovery", name: "Programme Recovery", purpose: "Explains programme slippage and drafts recovery scenarios for approval.", trigger: "Forecast slip over 7 days, or Run now", schedule: "On slip",

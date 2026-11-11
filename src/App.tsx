@@ -7,7 +7,7 @@ import AppShell from "./views/AppShell";
    is worked out for you. */
 const config = {
   /** Abstract background behind the Dashboard's KPI band. Hidden in the light theme. */
-  dashboardBackdrop: "#1d6f8a",
+  dashboardBackdrop: "#566400",
   /** Show the Dashboard background at all. Off for Turnua: light KPI cards keep the page in view. */
   kpiBackdropOn: false,
   /** Wash behind the Records hero (Files and Contacts) and the New record dialog.

@@ -40,7 +40,7 @@ export default function AppShell({ v }: Props) {
       <nav data-rail-nav="1" style={css(v.railOuter)}>
         <span style={css(v.railThumbStyle)} />
         <div style={css(cat(v.railRowStyle, "margin-bottom:22px"))}>
-          <button className={cx("ix0", "ix1")} onClick={v.toggleRail} title={v.railLabel} style={{"width":"36px","height":"36px","flex":"none","border":"0","borderRadius":"var(--cta-r,11px)","background":"#0B1630","color":"#fff","boxShadow":"inset 0 0 0 1px rgba(255,255,255,.08)","cursor":"pointer","display":v.railOpen ? "none" : "flex","alignItems":"center","justifyContent":"center","fontSize":"13px","fontWeight":"600","padding":"0","transition":"transform .2s var(--ease)"}} aria-label="Expand sidebar">
+          <button className={cx("ix0", "ix1")} onClick={v.toggleRail} title={v.railLabel} style={{"width":"36px","height":"36px","flex":"none","border":"0","borderRadius":"var(--cta-r,11px)","background":"#16181C","color":"#fff","boxShadow":"inset 0 0 0 1px rgba(255,255,255,.08)","cursor":"pointer","display":v.railOpen ? "none" : "flex","alignItems":"center","justifyContent":"center","fontSize":"13px","fontWeight":"600","padding":"0","transition":"transform .2s var(--ease)"}} aria-label="Expand sidebar">
             <img src="/turnua-mark.svg" alt="Turnua" width={14} height={17} style={{"display":"block"}} />
           </button>
           <span style={css(v.brandStyle)}>
@@ -112,9 +112,9 @@ export default function AppShell({ v }: Props) {
               <div style={{"fontSize":"11px","fontWeight":"600","letterSpacing":".12em","color":"var(--faint)"}}>
                 {"SIGNED IN"}
               </div>
-              <a href="#/settings/experience" title="Fictional records and local state only. Explained in Settings, Experience." style={{"display":"inline-flex","alignItems":"center","gap":"6px","marginTop":"8px","letterSpacing":".08em","padding":"3px 8px","borderRadius":"999px","border":"1px solid rgba(22,198,216,.45)","color":"#16C6D8","fontSize":"9.5px","fontWeight":"600","textDecoration":"none"}}>{"DEMO WORKSPACE"}</a>
+              <a href="#/settings/experience" title="Fictional records and local state only. Explained in Settings, Experience." style={{"display":"inline-flex","alignItems":"center","gap":"6px","marginTop":"8px","letterSpacing":".08em","padding":"3px 8px","borderRadius":"999px","border":"1px solid var(--accent-line)","color":"var(--accent)","background":"var(--accent-faint)","fontSize":"9.5px","fontWeight":"600","textDecoration":"none"}}>{"DEMO WORKSPACE"}</a>
               <div style={{"display":"flex","alignItems":"center","gap":"11px","marginTop":"12px"}}>
-                <div style={{"width":"40px","height":"40px","flex":"none","borderRadius":"999px","background":"#16C6D8","color":"#08132A","display":"flex","alignItems":"center","justifyContent":"center","fontSize":"13px","fontWeight":"600"}}>
+                <div style={{"width":"40px","height":"40px","flex":"none","borderRadius":"999px","background":"#DBFF00","color":"#16181C","display":"flex","alignItems":"center","justifyContent":"center","fontSize":"13px","fontWeight":"600"}}>
                   {"DC"}
                 </div>
                 <div style={{"minWidth":"0"}}>

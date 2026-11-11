@@ -163,7 +163,7 @@ function DeliveryPlan() {
                     <div className="tu-g-track" style={{ width: W }}>
                       <div className="tu-g-today" style={{ left: x(new Date(now).toISOString()) }} />
                       <div className="tu-g-base" style={{ left: Math.max(0, x(p.startAt)), width: Math.max(4, x(p.baselineFinish) - Math.max(0, x(p.startAt))) }} title={"Baseline finish " + fmtDate(p.baselineFinish)} />
-                      <div className="tu-g-bar" style={{ left: Math.max(0, x(p.startAt)), width: Math.max(6, x(p.forecastFinish) - Math.max(0, x(p.startAt))), background: p.health === "Off track" ? "#F4A0A6" : p.health === "At risk" ? "#F6CF85" : "#8FE3EC", opacity: .55 }} title={"Forecast finish " + fmtDate(p.forecastFinish)} onClick={() => navigate("/projects/p/" + p.id + "/timeline")}>{slipDays(p) > 0 ? "+" + slipDays(p) + " days" : "on baseline"}</div>
+                      <div className="tu-g-bar" style={{ left: Math.max(0, x(p.startAt)), width: Math.max(6, x(p.forecastFinish) - Math.max(0, x(p.startAt))), background: p.health === "Off track" ? "#F4A0A6" : p.health === "At risk" ? "#F6CF85" : "#D9EE7A", opacity: .55 }} title={"Forecast finish " + fmtDate(p.forecastFinish)} onClick={() => navigate("/projects/p/" + p.id + "/timeline")}>{slipDays(p) > 0 ? "+" + slipDays(p) + " days" : "on baseline"}</div>
                     </div>
                   </div>
                   {pms.map((m) => {

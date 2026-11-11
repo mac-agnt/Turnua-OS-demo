@@ -25,14 +25,14 @@
 .pp-wday.today{background:var(--accent-faint)}
 .pp-wday-h{font-size:11.5px;color:var(--dim)}
 .pp-wday-h b{color:var(--ink)}
-.pp-ev{display:flex;flex-direction:column;gap:1px;text-align:left;border:0;border-left:3px solid var(--accent-fill);border-radius:6px;background:var(--surface-2);padding:4px 6px;font:500 11.5px/1.3 var(--ui);color:var(--ink);cursor:pointer;min-width:0}
+.pp-ev{display:flex;flex-direction:column;gap:1px;text-align:left;border:0;border-left:3px solid var(--bar);border-radius:6px;background:var(--surface-2);padding:4px 6px;font:500 11.5px/1.3 var(--ui);color:var(--ink);cursor:pointer;min-width:0}
 .pp-ev.prov{background:repeating-linear-gradient(135deg,var(--surface-2) 0 6px,var(--track) 6px 12px)}
 .pp-ev:focus-visible{outline:2px solid var(--accent-fill);outline-offset:1px}
 .pp-bars{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:10px}
 .pp-bar-area{height:120px;display:flex;align-items:flex-end;justify-content:center;gap:4px;border-bottom:1px solid var(--border)}
 .pp-bar-area i{width:14px;border-radius:4px 4px 0 0;display:block}
 .pp-bar-area i.plan,.pp-legend i.plan{background:var(--track);box-shadow:inset 0 0 0 1px var(--border-strong)}
-.pp-bar-area i.log,.pp-legend i.log{background:var(--accent-fill)}
+.pp-bar-area i.log,.pp-legend i.log{background:var(--bar)}
 .pp-legend{display:inline-flex;align-items:center;gap:6px;font-size:11.5px;color:var(--dim)}
 .pp-legend i{width:10px;height:10px;border-radius:3px;display:inline-block;margin-left:6px}
 @media (max-width:900px){.pp-week{grid-template-columns:repeat(2,minmax(0,1fr))}.pp-wday{border-left:0;border-top:1px solid var(--border)}}

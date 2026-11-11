@@ -222,7 +222,7 @@ function Timeline({ pid }: { pid: ID }) {
                     <div className="tu-g-track" style={{ width: W }}>
                       <div className="tu-g-base" style={{ left: x(ph.start), width: Math.max(4, x(ph.baselineEnd) - x(ph.start)) }} title={"Baseline end " + fmtDate(ph.baselineEnd)} />
                       <div className="tu-g-bar" role="img" aria-label={ph.name + " " + pct(ph.pct) + " complete" + (ph.note ? ". " + ph.note : "")} title={ph.name + ": " + fmtDate(ph.start) + " to " + fmtDate(ph.end) + (ph.note ? " · " + ph.note : "")}
-                        style={{ left: x(ph.start), width: Math.max(8, x(ph.end) - x(ph.start)), background: late ? "linear-gradient(90deg,#9ADFE8 " + ph.pct * 100 + "%,#F6C3C7 " + ph.pct * 100 + "%)" : "linear-gradient(90deg,#16C6D8 " + ph.pct * 100 + "%,#C7EEF3 " + ph.pct * 100 + "%)", cursor: "default" }}>
+                        style={{ left: x(ph.start), width: Math.max(8, x(ph.end) - x(ph.start)), background: late ? "linear-gradient(90deg,#E3F18E " + ph.pct * 100 + "%,#F6C3C7 " + ph.pct * 100 + "%)" : "linear-gradient(90deg,#DBFF00 " + ph.pct * 100 + "%,#EEF5C8 " + ph.pct * 100 + "%)", cursor: "default" }}>
                         {pct(ph.pct)}{ph.note ? " · " + ph.note : ""}
                       </div>
                     </div>
@@ -238,7 +238,7 @@ function Timeline({ pid }: { pid: ID }) {
                     <div className="tu-g-label" style={{ paddingLeft: 24 }}><Avatar person={owner} size={18} /><button className="tu-link tu-ellipsis" style={{ color: "var(--body)" }} onClick={() => openRef("task", t.id)}>{t.title}</button></div>
                     <div className="tu-g-track" style={{ width: W }}>
                       <button className="tu-g-bar" onClick={() => openRef("task", t.id)} aria-label={t.title + ", " + t.status + ", due " + fmtDate(t.dueAt)} title={t.title + " · " + nameOf(db, t.ownerId) + " · " + t.status + " · due " + fmtDate(t.dueAt)}
-                        style={{ left: x(t.startAt!), width: Math.max(10, x(t.dueAt) - x(t.startAt!) + px), background: owner ? owner.color : "#C9D2E4", opacity: t.status === "Done" ? .45 : 1, outline: od ? "2px solid #E5484D" : undefined }}>
+                        style={{ left: x(t.startAt!), width: Math.max(10, x(t.dueAt) - x(t.startAt!) + px), background: owner ? owner.color : "#C9CCC7", opacity: t.status === "Done" ? .45 : 1, outline: od ? "2px solid #E5484D" : undefined }}>
                         {t.status === "Done" ? "Done" : od ? "Overdue" : ""}
                       </button>
                     </div>
@@ -253,7 +253,7 @@ function Timeline({ pid }: { pid: ID }) {
                   <div className="tu-g-track" style={{ width: W }}>
                     {m.baselineAt !== m.dueAt && <span className="tu-g-diamond" style={{ left: x(m.baselineAt) - 7, border: "1.5px solid var(--neutral)", background: "transparent" }} title={"Baseline " + fmtDate(m.baselineAt)} />}
                     <button className="tu-g-diamond" onClick={() => openRef("milestone", m.id)} aria-label={m.name + " " + fmtDate(m.dueAt)} title={m.name + " " + fmtDate(m.dueAt)}
-                      style={{ left: x(m.dueAt) - 7, background: m.handover ? "#08132A" : st === "Complete" ? "var(--ok)" : st === "Late" ? "#E5484D" : "var(--accent-fill)", boxShadow: m.handover ? "0 0 0 2px #16C6D8" : undefined }} />
+                      style={{ left: x(m.dueAt) - 7, background: m.handover ? "#16181C" : st === "Complete" ? "var(--ok)" : st === "Late" ? "#E5484D" : "var(--accent-fill)", boxShadow: m.handover ? "0 0 0 2px #DBFF00" : undefined }} />
                     <span className="tu-small tu-muted" style={{ position: "absolute", left: x(m.dueAt) + 12, top: 9, whiteSpace: "nowrap" }}>{fmtDate(m.dueAt)}{m.handover ? " · handover" : ""}</span>
                   </div>
                 </div>
@@ -263,7 +263,7 @@ function Timeline({ pid }: { pid: ID }) {
         </div>
       </div>
       <div className="tu-card-f tu-wrap">
-        <span><span className="tu-dot" style={{ background: "#16C6D8" }} /> Phase complete share</span>
+        <span><span className="tu-dot" style={{ background: "#DBFF00" }} /> Phase complete share</span>
         <span><span className="tu-dot" style={{ background: "var(--neutral)" }} /> Baseline</span>
         <span style={{ color: "#E5484D" }}>│ Today</span>
         <span>◆ Milestone · navy ◆ handover</span>

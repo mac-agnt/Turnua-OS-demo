@@ -5,7 +5,7 @@
 .hd-clock{font-size:28px;font-weight:600;letter-spacing:-.6px;font-variant-numeric:tabular-nums;line-height:1.1}
 .hd-trend{display:grid;grid-template-columns:repeat(13,minmax(0,1fr));gap:6px;align-items:end;height:170px;padding-top:8px}
 .hd-trend .col{display:flex;flex-direction:column;align-items:center;gap:4px;height:100%;justify-content:flex-end;min-width:0}
-.hd-trend .bar{width:100%;max-width:34px;border-radius:6px 6px 2px 2px;background:var(--accent-fill)}
+.hd-trend .bar{width:100%;max-width:34px;border-radius:6px 6px 2px 2px;background:var(--bar)}
 .hd-trend .bar.warn{background:var(--warn)}
 .hd-trend .v{font-size:10.5px;color:var(--dim);font-variant-numeric:tabular-nums}
 .hd-trend .x{font-size:10px;color:var(--faint);white-space:nowrap}
@@ -18,7 +18,7 @@
 .st-photo .ph{flex:none;width:64px;height:64px;border-radius:10px;background:repeating-linear-gradient(135deg,var(--track) 0 6px,transparent 6px 12px);display:flex;align-items:center;justify-content:center;color:var(--dim)}
 .st-week{display:grid;grid-template-columns:repeat(auto-fill,minmax(92px,1fr));gap:8px;margin-bottom:12px}
 .st-week button{display:flex;flex-direction:column;gap:3px;align-items:flex-start;padding:9px 10px;border:1px solid var(--border);border-radius:12px;background:var(--surface);cursor:pointer;font:inherit;color:var(--ink);text-align:left}
-.st-week button.on{border-color:var(--accent-fill);box-shadow:0 0 0 2px var(--accent-soft)}
+.st-week button.on{border-color:var(--bar);box-shadow:0 0 0 2px var(--accent-soft)}
 .st-week button:focus-visible{outline:2px solid var(--accent-fill);outline-offset:2px}
 .st-week .n{font-size:11px;color:var(--dim)}
 .st-pager{display:flex;align-items:center;gap:8px;justify-content:flex-end;padding:10px 18px;border-top:1px solid var(--border);font-size:12.5px;color:var(--dim)}
