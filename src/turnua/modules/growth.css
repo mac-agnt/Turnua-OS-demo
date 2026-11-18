@@ -1,0 +1,85 @@
+/* Field App, Sales and Marketing: pieces the shared kit does not cover. */
+
+/* phone frame for the crew view of the Field App */
+.fa-phone{width:100%;max-width:380px;margin:0 auto;border-radius:38px;padding:12px;background:#16181C;box-shadow:0 30px 70px rgba(0,0,0,.35),inset 0 0 0 1.5px rgba(255,255,255,.08)}
+.fa-screen{border-radius:28px;background:var(--panel,var(--surface));overflow:hidden;min-height:640px;display:flex;flex-direction:column}
+.fa-notch{height:26px;display:flex;align-items:center;justify-content:space-between;padding:0 22px;font:600 11px/1 var(--ui);color:var(--ink)}
+.fa-notch i{width:90px;height:20px;border-radius:0 0 14px 14px;background:#16181C;display:block;margin-top:-6px}
+.fa-body{padding:6px 16px 18px;display:flex;flex-direction:column;gap:12px;flex:1}
+.fa-hello{display:flex;align-items:center;gap:10px}
+.fa-hello h3{margin:0;font-size:17px;font-weight:650;color:var(--ink)}
+.fa-clock{border-radius:22px;padding:16px;background:var(--surface-2);border:1px solid var(--border);display:flex;flex-direction:column;gap:10px}
+.fa-clock.on{background:var(--accent-faint);border-color:var(--accent-line)}
+.fa-timer{font:700 34px/1 var(--mono);letter-spacing:-.02em;color:var(--ink)}
+.fa-big{height:52px;border-radius:16px;border:0;font:650 15px/1 var(--ui);cursor:pointer;display:flex;align-items:center;justify-content:center;gap:8px;width:100%}
+.fa-big.in{background:var(--accent-fill,var(--accent));color:#16181C}
+.fa-big.out{background:#16181C;color:#fff}
+.fa-big.ghost{background:var(--surface);border:1px solid var(--border);color:var(--ink)}
+.fa-big:focus-visible{outline:2px solid var(--focus);outline-offset:2px}
+.fa-job{border-radius:16px;border:1px solid var(--border);background:var(--surface);padding:11px 12px;display:flex;flex-direction:column;gap:7px}
+.fa-job .t{font-size:13.5px;font-weight:550;color:var(--ink);line-height:1.35}
+.fa-job .m{font-size:11.5px;color:var(--dim)}
+.fa-actions{display:flex;gap:6px;flex-wrap:wrap}
+.fa-h{font:600 10.5px/1 var(--mono);letter-spacing:.1em;color:var(--faint);text-transform:uppercase;margin-top:4px}
+.fa-tabbar{display:grid;grid-template-columns:repeat(4,1fr);border-top:1px solid var(--border);padding:8px 6px 12px}
+.fa-tabbar button{border:0;background:none;color:var(--dim);font:500 10.5px/1.2 var(--ui);display:flex;flex-direction:column;align-items:center;gap:4px;cursor:pointer;padding:4px}
+.fa-tabbar button.on{color:var(--ink)}
+.fa-tabbar button.on svg{color:var(--accent)}
+.fa-photo{display:flex;gap:6px}
+.fa-photo span{width:54px;height:54px;border-radius:12px;background:repeating-linear-gradient(135deg,var(--surface-2) 0 6px,var(--track) 6px 12px);border:1px solid var(--border)}
+
+/* crew drop targets on Assign Tasks */
+.fa-crew{border:1px solid var(--border);border-radius:16px;padding:12px;background:var(--surface);display:flex;flex-direction:column;gap:8px;transition:border-color .16s var(--ease),background .16s var(--ease)}
+.fa-crew.drop{border-color:var(--accent-fill);background:var(--accent-faint)}
+.fa-drag{cursor:grab}
+.fa-load{height:6px;border-radius:999px;background:var(--track);overflow:hidden}
+.fa-load i{display:block;height:100%;border-radius:999px;background:var(--ok)}
+.fa-live{display:inline-flex;align-items:center;gap:6px;font:600 11px/1 var(--mono);color:var(--ok)}
+.fa-live::before{content:"";width:7px;height:7px;border-radius:50%;background:var(--ok);box-shadow:0 0 0 3px color-mix(in oklab,var(--ok) 25%,transparent);animation:faPulse 1.6s infinite}
+@keyframes faPulse{50%{opacity:.4}}
+@media (prefers-reduced-motion:reduce){.fa-live::before{animation:none}}
+
+/* bars used by Sales forecast and Marketing overview */
+.gr-bars{display:flex;flex-direction:column;gap:10px}
+.gr-bar{display:grid;grid-template-columns:150px 1fr 110px;align-items:center;gap:10px;font-size:12.5px}
+.gr-bar .lab{color:var(--body);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.gr-bar .trk{height:12px;border-radius:999px;background:var(--track);overflow:hidden;display:flex}
+.gr-bar .trk i{display:block;height:100%}
+.gr-bar .val{text-align:right;font-family:var(--mono);font-size:12px;color:var(--ink)}
+.gr-funnel{display:flex;flex-direction:column;gap:6px;align-items:center}
+.gr-funnel div{height:38px;border-radius:10px;display:flex;align-items:center;justify-content:space-between;padding:0 14px;font-size:12.5px;color:#16181C;font-weight:600}
+.gr-sw{display:inline-block;width:9px;height:9px;border-radius:3px;margin-right:6px;vertical-align:middle}
+
+/* pipeline board: six stages */
+.sa-board{grid-template-columns:repeat(6,minmax(190px,1fr))}
+.sa-val{font:600 12px/1 var(--mono);color:var(--ink)}
+.sa-acc{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:14px}
+.sa-tier{font:600 10px/1 var(--mono);letter-spacing:.1em;text-transform:uppercase;padding:4px 8px;border-radius:999px}
+.sa-tier.Strategic{background:var(--accent-fill);color:#16181C}
+.sa-tier.Growth{background:var(--surface-2);color:var(--ink);border:1px solid var(--border)}
+.sa-tier.Target{background:transparent;color:var(--dim);border:1px dashed var(--border-strong)}
+
+/* Social Studio */
+.ss-grid{display:grid;grid-template-columns:minmax(0,1.05fr) minmax(0,1fr);gap:14px;align-items:start}
+@media (max-width:1180px){.ss-grid{grid-template-columns:minmax(0,1fr)}}
+.ss-drop{border:1.5px dashed var(--border-strong);border-radius:18px;padding:22px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;text-align:center;min-height:160px;cursor:pointer;background:var(--surface-faint);color:var(--dim);transition:border-color .16s var(--ease),background .16s var(--ease)}
+.ss-drop:hover,.ss-drop.over{border-color:var(--accent-fill);background:var(--accent-faint);color:var(--ink)}
+.ss-stage{border-radius:18px;background:#0f1012;display:flex;align-items:center;justify-content:center;padding:16px;min-height:340px}
+.ss-stage canvas,.ss-stage video{max-width:100%;max-height:520px;border-radius:10px;box-shadow:0 20px 50px rgba(0,0,0,.45)}
+.ss-plat{display:flex;gap:6px;flex-wrap:wrap}
+.ss-checks{display:flex;flex-direction:column;gap:6px;font-size:12.5px}
+.ss-checks div{display:flex;gap:8px;align-items:flex-start}
+.ss-preview{border:1px solid var(--border);border-radius:14px;background:var(--surface);overflow:hidden}
+.ss-preview .hd{display:flex;align-items:center;gap:9px;padding:10px 12px;font-size:12.5px}
+.ss-preview .hd b{color:var(--ink)}
+.ss-preview .tx{padding:0 12px 10px;font-size:13px;line-height:1.5;color:var(--body);white-space:pre-wrap}
+.ss-preview img{display:block;width:100%}
+.ss-queue{display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:12px}
+.ss-card{border:1px solid var(--border);border-radius:14px;overflow:hidden;background:var(--surface);display:flex;flex-direction:column;cursor:pointer;text-align:left;font:inherit;color:inherit;padding:0}
+.ss-card:hover{border-color:var(--accent-line)}
+.ss-thumb{aspect-ratio:4/3;background:#16181C;display:flex;align-items:center;justify-content:center;overflow:hidden;color:#DBFF00;font:800 22px/1 var(--ui);letter-spacing:-.01em;text-transform:uppercase;padding:12px;text-align:center}
+.ss-thumb img{width:100%;height:100%;object-fit:contain}
+.ss-card .b{padding:10px 12px;display:flex;flex-direction:column;gap:6px}
+.ss-brand{display:flex;gap:10px;flex-wrap:wrap}
+.ss-brand span{display:inline-flex;align-items:center;gap:6px;font-size:11.5px;color:var(--dim)}
+.ss-brand i{width:16px;height:16px;border-radius:5px;display:inline-block;border:1px solid var(--border)}

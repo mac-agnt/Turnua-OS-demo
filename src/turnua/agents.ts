@@ -1,6 +1,7 @@
 /* The eight agents. Each "Run now" reads the current store, writes a run with
    sources, and proposes actions only once per open issue. Nothing external. */
 import type { DB, AgentRun, ID } from "./types";
+import { STAGE_PROB } from "./types";
 import { getDB, update, newId, nowIso } from "./store";
 import { log, notify } from "./actions";
 import { toast } from "./ui";
@@ -215,7 +216,42 @@ function reporting(db: DB, now: number, d?: DB, clientId = "CL-NBI"): Out {
   return { headline: r.title, lines: r.lines, confidence: "High", limitations: "Local draft only. Nothing is sent to the client.", sources: r.sources, actions };
 }
 
+function sales(db: DB, now: number): Out {
+  const open = db.deals.filter((x) => x.stage !== "Won" && x.stage !== "Lost");
+  const total = open.reduce((n, x) => n + x.value, 0);
+  const weighted = open.reduce((n, x) => n + x.value * STAGE_PROB[x.stage], 0);
+  const week = now + 7 * 86400000;
+  const soon = open.filter((x) => Date.parse(x.nextStepAt) < week).sort((a, b) => b.value - a.value);
+  const stale = open.filter((x) => Date.parse(x.nextStepAt) < now);
+  const bids = db.bids.filter((b) => (b.status === "Writing" || b.status === "Go") && Date.parse(b.dueAt) > now).sort((a, b) => Date.parse(a.dueAt) - Date.parse(b.dueAt));
+  const cold = db.accounts.filter((a) => (now - Date.parse(a.lastTouchAt)) / 86400000 > 21);
+  const lines = [
+    ...soon.slice(0, 3).map((x) => x.name + " (" + eur(x.value) + ", " + x.stage + "): " + x.nextStep + ", " + fmtDate(x.nextStepAt) + "."),
+    ...(stale.length ? [stale.length + " deals have a next step in the past: " + stale.map((x) => x.id).join(", ") + "."] : ["Every open deal has a current next step."]),
+    ...bids.slice(0, 2).map((b) => b.id + " " + b.title + " due " + fmtDate(b.dueAt) + ", bid score " + b.score + "."),
+    ...(cold.length ? [cold.map((a) => a.name).join(", ") + ": no contact in over 3 weeks."] : []),
+  ];
+  return { headline: "Pipeline " + eur(total) + ", weighted " + eur(Math.round(weighted)) + "; " + soon.length + " next steps this week", lines, confidence: "High",
+    limitations: "Weighted by stage probability only. No buyer was contacted.", sources: [...soon.slice(0, 3).map((x) => src("deal", x.id, x.id)), ...bids.slice(0, 2).map((b) => src("bid", b.id, b.id))], actions: [] };
+}
+function marketing(db: DB, now: number): Out {
+  const fresh = db.leads.filter((l) => l.status === "New").sort((a, b) => b.score - a.score);
+  const hot = fresh.filter((l) => l.score >= 70);
+  const burning = db.campaigns.filter((c) => c.status === "Live" && c.spend / c.budget > 0.75);
+  const drafts = db.posts.filter((p) => p.status === "Draft");
+  const due = db.content.filter((c) => c.status !== "Published" && Date.parse(c.dueAt) < now + 5 * 86400000 && Date.parse(c.dueAt) > now);
+  const lines = [
+    ...hot.map((l) => l.company + " (score " + l.score + "): " + l.interest + (l.ownerId ? ", owner " + nameOf(db, l.ownerId) : ", needs an owner") + "."),
+    ...burning.map((c) => c.name + " has spent " + pct(c.spend / c.budget) + " of budget; cost per lead " + eur(Math.round(c.spend / Math.max(1, c.leads))) + "."),
+    ...(drafts.length ? [drafts.length + " social post" + (drafts.length > 1 ? "s" : "") + " in draft waiting for approval."] : []),
+    ...due.map((c) => c.title + " due " + fmtDate(c.dueAt) + " (" + c.status.toLowerCase() + ")."),
+  ];
+  return { headline: fresh.length + " new leads, " + hot.length + " above score 70", lines: lines.length ? lines : ["Nothing needs attention."], confidence: "Medium",
+    limitations: "Lead scores are demo heuristics. Nothing is posted or sent.", sources: [...hot.map((l) => src("lead", l.id, l.id)), ...burning.map((c) => src("campaign", c.id, c.id))], actions: [] };
+}
+
 const RUNNERS: Record<string, (db: DB, now: number, d?: DB, arg?: string) => Out> = {
+  sales: (db, now) => sales(db, now), marketing: (db, now) => marketing(db, now),
   briefing: (db, now) => briefingLines(db, now),
   watchdog, recovery: (db) => recovery(db), workforce: (db, now, _d, arg) => workforce(db, now, arg), compliance, triage, commercial,
   reporting: (db, now, d, arg) => reporting(db, now, d, arg),

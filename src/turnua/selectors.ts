@@ -154,6 +154,8 @@ export function badges(db: DB) {
     projects: db.projects.length,
     work: myOpenTasks(db, "P01").length,
     helpdesk: db.tickets.filter((t) => isUnresolved(t) && (t.priority === "P1" || t.priority === "P2")).length,
+    field: db.fieldIssues.filter((i) => i.status === "Reported").length,
+    marketing: db.leads.filter((l) => l.status === "New").length,
   };
 }
 
@@ -250,6 +252,13 @@ export function labelOf(db: DB, type: string, id: ID): string {
     case "agent": return db.agents.find((a) => a.id === id)?.name || id;
     case "workArea": return workArea(db, id)?.name || id;
     case "po": return id;
+    case "deal": { const x = db.deals.find((y) => y.id === id); return x ? id + " " + x.name : id; }
+    case "bid": return db.bids.find((y) => y.id === id)?.title || id;
+    case "account": return db.accounts.find((y) => y.id === id)?.name || id;
+    case "campaign": return db.campaigns.find((y) => y.id === id)?.name || id;
+    case "lead": { const x = db.leads.find((y) => y.id === id); return x ? x.name + ", " + x.company : id; }
+    case "post": return db.posts.find((y) => y.id === id)?.title || id;
+    case "content": return db.content.find((y) => y.id === id)?.title || id;
     default: return id;
   }
 }

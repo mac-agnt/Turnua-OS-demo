@@ -243,6 +243,74 @@ export interface SettingsState {
   integrations: Integration[];
 }
 
+
+/* ── Field App: clock records and issues raised from site ─────────── */
+export interface Clocking {
+  id: ID; personId: ID; siteId: ID; projectId: ID | null; inAt: string; outAt?: string;
+  method: "App" | "Geofence" | "Supervisor"; note?: string; timesheetId?: ID; origin: Origin;
+}
+export type IssueCategory = "Safety" | "Defect" | "Access" | "Materials" | "Plant" | "Client request";
+export const ISSUE_CATEGORIES: IssueCategory[] = ["Safety", "Defect", "Access", "Materials", "Plant", "Client request"];
+export type IssueSeverity = "Critical" | "High" | "Medium" | "Low";
+export interface FieldIssue {
+  id: ID; title: string; description: string; siteId: ID; projectId: ID | null;
+  category: IssueCategory; severity: IssueSeverity; reportedById: ID; reportedAt: string;
+  status: "Reported" | "Assigned" | "In progress" | "Closed"; assigneeId: ID | null;
+  taskId?: ID; ticketId?: ID; photos: number; location?: string; closedAt?: string; origin: Origin;
+}
+
+/* ── Sales: top end pipeline, key accounts and bids ──────────────── */
+export type DealStage = "Lead" | "Qualified" | "Proposal" | "Negotiation" | "Won" | "Lost";
+export const DEAL_STAGES: DealStage[] = ["Lead", "Qualified", "Proposal", "Negotiation", "Won", "Lost"];
+export const STAGE_PROB: Record<DealStage, number> = { Lead: 0.1, Qualified: 0.25, Proposal: 0.5, Negotiation: 0.75, Won: 1, Lost: 0 };
+export interface Deal {
+  id: ID; name: string; accountId: ID; service: string; value: number; stage: DealStage;
+  ownerId: ID; closeAt: string; nextStep: string; nextStepAt: string; source: string;
+  contact: string; createdAt: string; lostReason?: string; leadId?: ID; origin: Origin; touched?: boolean;
+  history: { at: string; text: string }[];
+}
+export interface KeyAccount {
+  id: ID; name: string; sector: string; tier: "Strategic" | "Growth" | "Target"; clientId?: ID;
+  ownerId: ID; sponsorId: ID; revenueTTM: number; potential: number;
+  relationship: "Strong" | "Developing" | "Cold"; lastTouchAt: string; nextMeeting?: string;
+  decisionMakers: string[]; whitespace: string[]; notes: string;
+}
+export interface Bid {
+  id: ID; title: string; buyer: string; value: number; dueAt: string; portal: string;
+  status: "Qualifying" | "Go" | "No-go" | "Writing" | "Submitted" | "Won" | "Lost";
+  ownerId: ID; score: number; dealId?: ID; origin: Origin;
+}
+
+/* ── Marketing: campaigns, inbound leads and content ─────────────── */
+export interface Campaign {
+  id: ID; name: string; channel: "LinkedIn" | "Google Ads" | "Events" | "Email" | "Partner" | "PR";
+  audience: string; status: "Live" | "Paused" | "Planned" | "Completed"; ownerId: ID;
+  start: string; end: string; budget: number; spend: number; impressions: number; clicks: number;
+  leads: number; sqls: number; pipeline: number; origin: Origin;
+}
+export interface Lead {
+  id: ID; name: string; company: string; role: string; email: string; sector: string;
+  campaignId: ID | null; source: string; score: number; status: "New" | "Contacted" | "Qualified" | "Converted" | "Disqualified";
+  ownerId: ID | null; createdAt: string; interest: string; estValue: number; dealId?: ID; origin: Origin;
+}
+export interface ContentItem {
+  id: ID; title: string; kind: "Case study" | "LinkedIn post" | "Article" | "Video" | "Event" | "Newsletter";
+  ownerId: ID; dueAt: string; status: "Idea" | "Drafting" | "In review" | "Scheduled" | "Published";
+  campaignId?: ID; channel: string; origin: Origin;
+}
+
+/* ── Marketing: Social Studio posts ─────────────────────────────── */
+export type SocialPlatform = "LinkedIn" | "Instagram" | "Facebook" | "X" | "TikTok";
+export const SOCIAL_PLATFORMS: SocialPlatform[] = ["LinkedIn", "Instagram", "Facebook", "X", "TikTok"];
+export interface SocialPost {
+  id: ID; title: string; mediaKind: "image" | "video" | "none"; mediaName: string;
+  /** Branded creative or video poster frame, a small JPEG data URL. */
+  creative?: string; format: "1:1" | "4:5" | "9:16" | "1.91:1";
+  headline: string; captions: Partial<Record<SocialPlatform, string>>; hashtags: string[];
+  platforms: SocialPlatform[]; scheduledAt?: string; publishedAt?: string;
+  status: "Draft" | "Scheduled" | "Published"; ownerId: ID; campaignId?: ID; topic: string;
+  createdAt: string; origin: Origin; stats?: { reach: number; engagement: number; clicks: number };
+}
 export interface DB {
   version: number;
   meta: { seedDay: string; seedNow: number; lastOpenDay: string };
@@ -256,5 +324,8 @@ export interface DB {
   approvals: Approval[]; events: CalEvent[]; timesheets: Timesheet[]; training: TrainingRequest[];
   docs: Doc[]; agents: Agent[]; runs: AgentRun[]; activity: Activity[]; messages: Message[];
   workflows: Workflow[]; notifications: Notification[]; briefings: Briefing[]; reports: Report[];
+  clockings: Clocking[]; fieldIssues: FieldIssue[];
+  deals: Deal[]; accounts: KeyAccount[]; bids: Bid[];
+  campaigns: Campaign[]; leads: Lead[]; content: ContentItem[]; posts: SocialPost[];
   settings: SettingsState;
 }

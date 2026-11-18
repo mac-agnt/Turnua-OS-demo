@@ -23,9 +23,11 @@ Settings → Experience → Reset demo restores the canonical scenario.
 | Store, persistence, day migration | `src/turnua/store.ts` |
 | Derived totals (every number on screen) | `src/turnua/selectors.ts` |
 | Mutations, activity and audit | `src/turnua/actions.ts` |
-| Agents (8) and Home chat answers | `src/turnua/agents.ts`, `src/turnua/assistant.ts` |
+| Agents (10, incl. Sales and Marketing) and Home chat answers | `src/turnua/agents.ts`, `src/turnua/assistant.ts` |
 | Routes, overlays, toasts, prefs | `src/turnua/ui.ts`, `src/turnua/Overlays.tsx` |
-| Modules | `src/turnua/modules/*` |
+| Modules | `src/turnua/modules/*` (Field App, Sales, Marketing with Social Studio included) |
+| Field, Sales, Marketing data and actions | `src/turnua/seedGrowth.ts`, `src/turnua/growthActions.ts` |
+| Brand guidelines, post drafting, creative renderer | `src/turnua/modules/marketing/brand.ts` |
 | Shared drawers (task, approval, records) | `src/turnua/drawers/*` |
 | Brand themes and components | `src/turnua/turnua.css`, `src/turnua/kit.tsx` |
 | Pulse shell (Home chat, Ontology, rail, top bar) | `src/views/*`, `src/logic/PulseLogic.js` via `src/turnua/bridge.ts` |

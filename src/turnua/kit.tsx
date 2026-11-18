@@ -227,6 +227,13 @@ export function openRef(type: string, id: ID) {
     case "integration": return closeAllThenGo("/settings/systems");
     case "settings": return closeAllThenGo("/settings/governance");
     case "timesheet": return closeAllThenGo("/people/timesheets");
+    case "deal": return closeAllThenGo("/sales/pipeline?deal=" + id);
+    case "bid": return closeAllThenGo("/sales/bids");
+    case "account": return closeAllThenGo("/sales/accounts?account=" + id);
+    case "campaign": return closeAllThenGo("/marketing/campaigns");
+    case "lead": return closeAllThenGo("/marketing/leads");
+    case "content": return closeAllThenGo("/marketing/calendar");
+    case "post": return closeAllThenGo("/marketing/studio?post=" + id);
     default: return openRecord(type, id);
   }
 }
