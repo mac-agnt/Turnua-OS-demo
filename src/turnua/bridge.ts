@@ -148,7 +148,7 @@ export function kpiVals() {
 }
 
 /* ── Agents chat (Directory tab reuses the Pulse agent conversation UI) ── */
-const STATE: Record<string, string> = { briefing: "complete", watchdog: "attention", recovery: "waiting", workforce: "idle", compliance: "complete", triage: "working", commercial: "complete", reporting: "idle" };
+const STATE: Record<string, string> = { briefing: "complete", watchdog: "attention", recovery: "waiting", workforce: "idle", compliance: "complete", triage: "working", commercial: "complete", reporting: "idle", sales: "complete", marketing: "working" };
 export function agentChat() {
   const db = getDB();
   const now = Date.now();

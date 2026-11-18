@@ -5,8 +5,9 @@ import type {
   Doc, Activity, AgentRun, Phase, Milestone, ChecklistItem, Comment, Ticket, TicketPriority,
 } from "./types";
 import { addDays, at, endOfDay, keyOf, weekdayOf, mondayOf, fmtKey } from "./time";
+import { buildGrowthSeed } from "./seedGrowth";
 
-export const DATA_VERSION = 6;
+export const DATA_VERSION = 7;
 export const SLA_TARGET: Record<TicketPriority, number> = { P1: 60, P2: 240, P3: 1440, P4: 2880 };
 
 /** Small deterministic PRNG so 344 assets and 212 jobs come out the same on every reset. */
@@ -845,11 +846,24 @@ export function buildSeed(now: number): DB {
       inputs: ["Cost", "Progress", "Original and approved baselines", "Pending changes", "Valuation evidence"], boundaries: ["No financial approvals", "Drafts review tasks only"], shape: "offset-pebble", tint: "#191c1f", enabled: true },
     { id: "reporting", name: "Client Reporting", purpose: "Drafts client-specific reports from milestones, evidence, risks and service metrics.", trigger: "On request", schedule: "On request",
       inputs: ["Milestones", "QA evidence", "Risks", "Decisions", "Service metrics"], boundaries: ["Local drafts only", "Never emails a client"], shape: "glass-visor", tint: "#1b2430", enabled: true },
+    { id: "sales", name: "Sales", purpose: "Works the top end pipeline: stale deals, next steps, key account gaps and bid deadlines, with a weighted forecast.", trigger: "Weekdays 07:30, or Run now", schedule: "Weekdays 07:30",
+      inputs: ["Opportunities", "Key accounts", "Bids and tenders", "Calendar", "Delivery health"], boundaries: ["Drafts tasks and next steps only", "Never contacts a buyer", "No pricing decisions"], shape: "precision-brow", tint: "#1d2614", enabled: true },
+    { id: "marketing", name: "Marketing", purpose: "Scores inbound leads, routes them to owners, flags campaigns burning budget and drafts on-brand social posts.", trigger: "New lead, or Run now", schedule: "Hourly (demo: on change)",
+      inputs: ["Campaigns", "Leads", "Content calendar", "Social posts", "Brand guidelines"], boundaries: ["Drafts posts for approval", "Never publishes without a person", "No paid budget changes"], shape: "wide-eyed", tint: "#22261a", enabled: true },
   ];
   const RUN = (id: string, agentId: string, hoursAgo: number, trigger: AgentRun["trigger"], headline: string, lines: string[], sources: AgentRun["sources"], actions: AgentRun["actions"], confidence: AgentRun["confidence"] = "High", limitations = "Reads demo records only."): AgentRun =>
     ({ id, agentId, at: inH(-hoursAgo), trigger, headline, lines, sources, actions, confidence, limitations, signature: id });
   const hoursSince7 = Math.max(0.2, (now - Date.parse(atD(0, 7))) / 3600000);
   const runs: AgentRun[] = [
+    RUN("RUN-S-01", "sales", hoursSince7 > 0.6 ? hoursSince7 - 0.5 : 17, "Schedule", "Pipeline €42.8M, weighted €19.9M; 4 deals need a next step this week",
+      ["Halls 5 and 6 (€14.8M, Negotiation): commercial clarifications call in 2 days. Hall 4 recovery decision is the reference point for this buyer.",
+       "Campus 2 white space (€6.9M, Proposal): exec lunch with the CTO in 3 days.", "OPW framework bid due in 16 days, writing at 78/100 bid score.",
+       "Grid operator account is cold: last touch 34 days ago, no meeting booked."],
+      [{ type: "deal", id: "OPP-118", label: "OPP-118" }, { type: "deal", id: "OPP-130", label: "OPP-130" }, { type: "bid", id: "BID-041", label: "BID-041" }], [{ label: "Open the pipeline", kind: "none" }]),
+    RUN("RUN-M-01", "marketing", 1.2, "Record change", "4 new leads, 2 above score 70 routed for same day contact",
+      ["Northlake Data Centres (score 88): 24 MW campus fit out, suggest David.", "Atlas Pharma Ireland (score 74): UPS maintenance, suggest Paul.",
+       "Google Ads search has spent 79% of budget with 15 days left; cost per lead €123.", "Case study AquaComms in review, due in 4 days."],
+      [{ type: "lead", id: "LD-501", label: "LD-501" }, { type: "lead", id: "LD-502", label: "LD-502" }, { type: "campaign", id: "CMP-02", label: "CMP-02" }], [{ label: "Route leads", kind: "none" }]),
     RUN("RUN-B-02", "briefing", hoursSince7 > 0 ? hoursSince7 : 18, "Schedule", "Morning briefing: two decisions and one live P1",
       ["Hall 4 is 21 days behind on containment; €42,000 recovery proposal waits for you (targets " + F(67) + ").", "Rathdrum variation CR-2041-03, €84,000, needs a decision today.", "AquaComms P1 HD-4821 at Landing Station 1, Paul assigned.", "DLR licence decision due " + F(2) + "; escalation waiting for your approval."],
       [{ type: "project", id: "TRN-2052", label: "Hall 4" }, { type: "change", id: "CR-2041-03", label: "CR-2041-03" }, { type: "ticket", id: "HD-4821", label: "HD-4821" }], [{ label: "Open approvals", kind: "none" }]),
@@ -964,5 +978,6 @@ export function buildSeed(now: number): DB {
     clients, contacts, suppliers, purchaseOrders, projects, phases, milestones, workAreas, tasks, risks, permits, rams, changes, valuations,
     sites, assets, maintenance, inspections, findings, tickets, sla, runbooks, approvals, events, timesheets, training, docs,
     agents, runs, activity, messages, workflows, notifications, briefings: [], reports: [], settings,
+    ...buildGrowthSeed(now),
   };
 }

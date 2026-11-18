@@ -21,6 +21,8 @@ const CONNECTED: Record<string, string[]> = {
   triage: ["Tickets", "Sites", "Assets", "Runbooks", "On-call events"],
   commercial: ["Projects", "Change requests", "Valuations", "Purchase orders"],
   reporting: ["Clients", "Projects", "Milestones", "Risks", "SLA report", "Reports"],
+  sales: ["Opportunities", "Key accounts", "Bids", "Calendar events", "Projects"],
+  marketing: ["Campaigns", "Leads", "Content calendar", "Social posts", "Brand guidelines"],
 };
 
 /** Run an agent from this module, honouring Governance & AI: when agents may not

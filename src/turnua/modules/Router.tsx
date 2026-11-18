@@ -13,6 +13,9 @@ import AgentsModule from "./agents/Agents";
 import ActivityModule from "./activity/Activity";
 import SettingsModule from "./settings/Settings";
 import RecordsModule from "./records/Records";
+import FieldModule from "./field/Field";
+import SalesModule from "./sales/Sales";
+import MarketingModule from "./marketing/Marketing";
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export default function TurnuaModules({ v }: { v: any }) {
@@ -28,6 +31,9 @@ export default function TurnuaModules({ v }: { v: any }) {
     case "helpdesk": return <HelpdeskModule tab={r.tab} />;
     case "sites": return <SitesModule tab={r.tab} id={r.id} sub={r.sub} />;
     case "agents": return r.tab === "directory" ? null : <AgentsModule tab={r.tab} />;
+    case "field": return <FieldModule tab={r.tab} />;
+    case "sales": return <SalesModule tab={r.tab} />;
+    case "marketing": return <MarketingModule tab={r.tab} />;
     case "activity": return <ActivityModule tab={r.tab} />;
     case "settings": return <SettingsModule tab={r.tab} />;
     default: return null;
