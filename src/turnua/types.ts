@@ -302,6 +302,11 @@ export interface ContentItem {
 /* ── Marketing: Social Studio posts ─────────────────────────────── */
 export type SocialPlatform = "LinkedIn" | "Instagram" | "Facebook" | "X" | "TikTok";
 export const SOCIAL_PLATFORMS: SocialPlatform[] = ["LinkedIn", "Instagram", "Facebook", "X", "TikTok"];
+export interface MediaItem {
+  id: ID; name: string; kind: "image" | "video";
+  /** A path in /public (seed) or "idb:<key>" for an upload kept in this browser's IndexedDB. */
+  src: string; w: number; h: number; bytes: number; addedAt: string; addedById: ID; tags: string[]; origin: Origin;
+}
 export interface SocialPost {
   id: ID; title: string; mediaKind: "image" | "video" | "none"; mediaName: string;
   /** Branded creative or video poster frame, a small JPEG data URL. */
@@ -310,6 +315,10 @@ export interface SocialPost {
   platforms: SocialPlatform[]; scheduledAt?: string; publishedAt?: string;
   status: "Draft" | "Scheduled" | "Published"; ownerId: ID; campaignId?: ID; topic: string;
   createdAt: string; origin: Origin; stats?: { reach: number; engagement: number; clicks: number };
+  /** Library items used, in slide order. More than one makes a carousel. */
+  mediaIds?: ID[];
+  /** Branded thumbnail of every slide, in order. */
+  slides?: string[];
 }
 export interface DB {
   version: number;
@@ -326,6 +335,6 @@ export interface DB {
   workflows: Workflow[]; notifications: Notification[]; briefings: Briefing[]; reports: Report[];
   clockings: Clocking[]; fieldIssues: FieldIssue[];
   deals: Deal[]; accounts: KeyAccount[]; bids: Bid[];
-  campaigns: Campaign[]; leads: Lead[]; content: ContentItem[]; posts: SocialPost[];
+  campaigns: Campaign[]; leads: Lead[]; content: ContentItem[]; posts: SocialPost[]; media: MediaItem[];
   settings: SettingsState;
 }

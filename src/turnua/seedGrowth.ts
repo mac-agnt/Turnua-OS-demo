@@ -1,7 +1,7 @@
 /* Demo scenario for the Field App, Sales and Marketing modules.
    Seeded relative to "now" like the rest of the workspace. All names, buyers,
    values and figures are fictional demo data. */
-import type { Bid, Campaign, Clocking, ContentItem, Deal, FieldIssue, KeyAccount, Lead, SocialPost } from "./types";
+import type { Bid, Campaign, Clocking, ContentItem, Deal, FieldIssue, KeyAccount, Lead, MediaItem, SocialPost } from "./types";
 import { addDays, at, endOfDay, keyOf } from "./time";
 
 export function buildGrowthSeed(now: number) {
@@ -143,7 +143,21 @@ export function buildGrowthSeed(now: number) {
     { id: "CNT-06", title: "Safety week: zero lost time on Rathdrum", kind: "LinkedIn post", ownerId: "P08", dueAt: atD(-2, 9), status: "Published", channel: "LinkedIn", origin: "seed" },
   ];
 
+  const media: MediaItem[] = [
+    { id: "MED-01", name: "Business All-Star accreditation, Naas office", kind: "image", src: "/media/turnua-business-all-star-award.jpg", w: 800, h: 1044, bytes: 101477,
+      addedAt: atD(0, 12, 45), addedById: "P02", tags: ["Award", "Business All-Star", "Team", "Office"], origin: "seed" },
+  ];
   const posts: SocialPost[] = [
+    { id: "PST-14", title: "Business All-Star accreditation", mediaKind: "image", mediaName: "Business All-Star accreditation, Naas office", mediaIds: ["MED-01"], format: "4:5",
+      headline: "BUSINESS ALL-STAR", topic: "Award",
+      captions: {
+        LinkedIn: "Turnua has been accredited as a Business All-Star. The accreditation recognises Irish businesses for excellence in how they are run and how they treat their customers and people.\n\nThis belongs to every person on our sites, in our CI Hub and on our 24/7 helpdesk. Thank you to our clients and partners for the trust behind it.\n\nMore at turnua.com.\n\n#Turnua #BusinessAllStar #IrishBusiness #CriticalInfrastructure",
+        Instagram: "Accredited as a Business All-Star. This one belongs to the whole Turnua team, on every site and every shift.\n\n#Turnua #BusinessAllStar #IrishBusiness #TeamTurnua",
+        Facebook: "Turnua has been accredited as a Business All-Star. Thank you to our team, our clients and our partners. More at turnua.com.",
+        X: "Turnua has been accredited as a Business All-Star. Credit to the whole team, on every site and every shift. #Turnua #BusinessAllStar",
+      },
+      hashtags: ["#Turnua", "#BusinessAllStar", "#IrishBusiness", "#CriticalInfrastructure"], platforms: ["LinkedIn", "Instagram", "Facebook", "X"],
+      status: "Draft", ownerId: "P02", createdAt: atD(0, 12, 46), origin: "seed" },
     { id: "PST-11", title: "Safety week, Rathdrum", mediaKind: "none", mediaName: "", format: "4:5", headline: "ZERO LOST TIME", topic: "Safety",
       captions: { LinkedIn: "Safety week on the Rathdrum public realm scheme: zero lost time incidents and 14 toolbox talks this month. Thanks to every crew member who keeps the site safe for the town and for each other.", Instagram: "Zero lost time on Rathdrum. 14 toolbox talks this month. Safe sites are built by people who look out for each other." },
       hashtags: ["#SafetyFirst", "#Construction", "#Turnua"], platforms: ["LinkedIn", "Instagram"], scheduledAt: atD(-2, 9), publishedAt: atD(-2, 9), status: "Published", ownerId: "P08", createdAt: atD(-4, 14), origin: "seed",
@@ -156,5 +170,5 @@ export function buildGrowthSeed(now: number) {
       hashtags: ["#Subsea", "#CriticalFacilities"], platforms: ["LinkedIn"], status: "Draft", ownerId: "P02", createdAt: atD(0, 9), origin: "seed" },
   ];
 
-  return { posts, clockings, fieldIssues, accounts, deals, bids, campaigns, leads, content };
+  return { media, posts, clockings, fieldIssues, accounts, deals, bids, campaigns, leads, content };
 }

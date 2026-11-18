@@ -248,3 +248,24 @@ export function deletePost(id: ID) {
   });
   toast("Post deleted");
 }
+
+/* ── Media library ───────────────────────────────────────────────── */
+export function addMedia(items: import("./types").MediaItem[]) {
+  if (!items.length) return;
+  update((d) => {
+    d.media.unshift(...items);
+    log(d, { text: "Added " + items.length + " file" + (items.length > 1 ? "s" : "") + " to the media library", sourceType: "content", sourceId: items[0].id, category: "Marketing" });
+  });
+  toast(items.length + " file" + (items.length > 1 ? "s" : "") + " added to the library");
+}
+export function removeMedia(id: ID) {
+  update((d) => {
+    const m = d.media.find((x) => x.id === id);
+    d.media = d.media.filter((x) => x.id !== id);
+    if (m) log(d, { text: "Removed “" + m.name + "” from the media library", sourceType: "content", sourceId: id, category: "Marketing" });
+  });
+  toast("Removed from the library");
+}
+export function renameMedia(id: ID, name: string, tags: string[]) {
+  update((d) => { const m = d.media.find((x) => x.id === id); if (m) { m.name = name; m.tags = tags; } });
+}

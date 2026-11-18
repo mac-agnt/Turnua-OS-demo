@@ -36,7 +36,7 @@ export const FORMATS = {
   "1.91:1": { w: 1200, h: 628, label: "Landscape 1.91:1", for: "LinkedIn, X, Facebook links" },
 } as const;
 
-export const TOPICS = ["Project milestone", "Crew spotlight", "Safety", "Case study", "Hiring", "Event", "Service line"] as const;
+export const TOPICS = ["Award", "Project milestone", "Crew spotlight", "Safety", "Case study", "Hiring", "Event", "Service line"] as const;
 export type Topic = (typeof TOPICS)[number];
 
 export const BEST_TIMES: Record<SocialPlatform, string> = { LinkedIn: "Tue to Thu, 08:30", Instagram: "Weekdays, 12:30", Facebook: "Weekdays, 13:00", X: "Weekdays, 09:00", TikTok: "Weekdays, 19:00" };
@@ -61,6 +61,11 @@ export function draftPost(db: DB, o: { topic: Topic; projectId?: string; point: 
   let body = "";
   let tags: string[] = [];
   switch (o.topic) {
+    case "Award":
+      headline = pick(["BUSINESS ALL-STAR", "RECOGNISED", "AWARD WINNING"], v);
+      body = (point || "Turnua has been recognised for how we run our business and look after our clients and people") + ". This belongs to every person on our sites, in our CI Hub and on our 24/7 helpdesk. Thank you to our clients and partners for the trust behind it.";
+      tags = ["#Turnua", "#BusinessAllStar", "#IrishBusiness", "#CriticalInfrastructure"];
+      break;
     case "Project milestone":
       headline = pick(["MILESTONE REACHED", "ON PROGRAMME", "DELIVERED"], v);
       body = (point || "A key milestone reached") + (p ? " on " + p.name + " for " + who + " in " + where + "." : ".") + (progress ? " " + progress + "." : "");

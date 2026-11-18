@@ -7,7 +7,7 @@ import type {
 import { addDays, at, endOfDay, keyOf, weekdayOf, mondayOf, fmtKey } from "./time";
 import { buildGrowthSeed } from "./seedGrowth";
 
-export const DATA_VERSION = 7;
+export const DATA_VERSION = 8;
 export const SLA_TARGET: Record<TicketPriority, number> = { P1: 60, P2: 240, P3: 1440, P4: 2880 };
 
 /** Small deterministic PRNG so 344 assets and 212 jobs come out the same on every reset. */
