@@ -114,3 +114,10 @@
 .ss-thumb{position:relative}
 .ss-count{position:absolute;top:8px;right:8px;background:rgba(0,0,0,.6);color:#fff;font:600 10.5px/1 var(--ui);padding:4px 7px;border-radius:999px;letter-spacing:0;text-transform:none}
 .ss-thumb video{width:100%;height:100%;object-fit:cover}
+
+/* night: device frame and dark buttons follow the Turnua navy */
+[data-theme="turnua-night"] .fa-phone{background:#00143D;box-shadow:0 30px 70px rgba(0,8,30,.5),inset 0 0 0 1.5px rgba(170,195,255,.14)}
+[data-theme="turnua-night"] .fa-notch i{background:#00143D}
+[data-theme="turnua-night"] .fa-big.out{background:#00143D;box-shadow:inset 0 0 0 1px rgba(170,195,255,.18)}
+[data-theme="turnua-night"] .ss-stage{background:#00143D}
+[data-theme="turnua-night"] .ss-thumb,[data-theme="turnua-night"] .ss-libimg,[data-theme="turnua-night"] .ss-slide-img{background:#00143D}

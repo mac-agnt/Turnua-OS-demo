@@ -10,6 +10,9 @@
    Stone greys #ECEDEF to #80868F for frame, panels, borders and secondary text
    Semantic green, amber and red stay distinct from lime and always carry text. */
 
+/* Turnua night: the navy of the Turnua mark tile (#00285B to #011C53, lifting to
+   #013766), lime #DBFF00 as the one accent, cool blue-grey text. */
+
 /* ── Turnua light: stone frame, white cards, graphite ink, lime accent ── */
 [data-theme="turnua"]{
 --ui:"Geist",system-ui,sans-serif;--mono:"Geist",system-ui,sans-serif;--fig-weight:600;--card-r:18px;--cta-r:999px;--chip-r:999px;
@@ -41,37 +44,37 @@ color-scheme:light}
 /* ── Turnua night: graphite, lime glows through ─────────────────── */
 [data-theme="turnua-night"]{
 --ui:"Geist",system-ui,sans-serif;--mono:"Geist",system-ui,sans-serif;--fig-weight:600;--card-r:18px;--cta-r:999px;--chip-r:999px;
---panel:#131417;--r-ctl:999px;--r-md:14px;--r-sm:10px;
---bg:#0D0E10;--rail:transparent;--surface:#1A1C1F;--surface-2:#212328;--surface-strong:#1A1C1F;--overlay:rgba(26,28,31,.985);
---tooltip:#2A2D33;--tooltip-ink:#F2F3EF;
---border:rgba(255,255,255,.08);--border-strong:rgba(255,255,255,.17);--card-shadow:none;
---ink:#F2F3EF;--body:#CDD0CA;--dim:#A0A49D;--faint:#888C86;--mid:#888C86;
---accent:#DBFF00;--on-accent:#16181C;--on-accent-2:rgba(22,24,28,.7);--on-accent-strong:rgba(22,24,28,.86);--on-accent-soft:rgba(255,255,255,.1);
---accent-hover:#E6FF4D;--accent-soft:rgba(219,255,0,.14);--accent-faint:rgba(219,255,0,.06);--accent-line:rgba(219,255,0,.34);
---accent-fill:#DBFF00;--accent-glow:0 0 22px rgba(219,255,0,.16);--bar:#DBFF00;--focus:#DBFF00;
---ok:#5BD08A;--ok-soft:rgba(91,208,138,.13);--warn:#F0B24A;--warn-soft:rgba(240,178,74,.14);--bad:#F2766E;--bad-soft:rgba(242,118,110,.14);
+--panel:#022452;--r-ctl:999px;--r-md:14px;--r-sm:10px;
+--bg:#011C53;--rail:transparent;--surface:#062C61;--surface-2:#0B356D;--surface-strong:#062C61;--overlay:rgba(6,44,97,.985);
+--tooltip:#0F3C77;--tooltip-ink:#F2F5FA;
+--border:rgba(170,195,255,.13);--border-strong:rgba(170,195,255,.26);--card-shadow:none;
+--ink:#F2F5FA;--body:#CCD6E6;--dim:#A3B2CD;--faint:#8A9BBA;--mid:#8A9BBA;
+--accent:#DBFF00;--on-accent:#0A1F45;--on-accent-2:rgba(10,31,69,.72);--on-accent-strong:rgba(10,31,69,.88);--on-accent-soft:rgba(255,255,255,.1);
+--accent-hover:#E6FF4D;--accent-soft:rgba(219,255,0,.15);--accent-faint:rgba(219,255,0,.07);--accent-line:rgba(219,255,0,.38);
+--accent-fill:#DBFF00;--accent-glow:0 0 22px rgba(219,255,0,.2);--bar:#DBFF00;--focus:#DBFF00;
+--ok:#5BD08A;--ok-soft:rgba(91,208,138,.15);--warn:#F0B24A;--warn-soft:rgba(240,178,74,.16);--bad:#F2766E;--bad-soft:rgba(242,118,110,.16);
 --bad-on-accent:#5c1418;--bad-on-accent-ink:#4e1014;
---neutral:rgba(255,255,255,.22);--track:rgba(255,255,255,.08);--scrim:rgba(6,7,8,.62);
---pill-bg:#2A2D33;--pill-ink:#F2F3EF;--surface-faint:#16171A;
---glass-surface:#1A1C1F;--glass-surface-2:#212328;--glass-border:rgba(255,255,255,.09);--glass-highlight:rgba(255,255,255,.05);--glass-shadow:rgba(0,0,0,.55);--glass-tint:rgba(219,255,0,.07);
---flap:linear-gradient(178deg,#1F2125 0%,#1A1C1F 49%,#16171A 51%,#1D1F23 100%);--flap-hinge:rgba(0,0,0,.6);--flap-notch:#0D0E10;
---glow-a:rgba(219,255,0,.06);--glow-b:rgba(255,255,255,.03);--grid:rgba(255,255,255,.02);--ease:cubic-bezier(.2,.8,.2,1);
---bloom-a:rgba(219,255,0,.3);--bloom-b:rgba(134,160,0,.22);--bloom-c:rgba(255,255,255,.08);
---hero-field:#1A1C1F;--records-card:#1A1C1F;--chip:#1A1C1F;--chip-border:rgba(255,255,255,.1);
---hero-grad:linear-gradient(180deg,#0d0e10 0%,#1b2008 26%,#2a3405 48%,#1d2306 72%,#131417 100%);
---kpi-card:#1A1C1F;--kpi-ink:#F2F3EF;--kpi-dim:#A0A49D;--kpi-up:#5BD08A;--kpi-down:#F2766E;
---rail-active:rgba(219,255,0,.1);--rail-active-ring:inset 0 0 0 1px rgba(219,255,0,.26);--rail-active-ink:#F2F3EF;
---tab-thumb:#DBFF00;--tab-thumb-shadow:0 2px 10px rgba(219,255,0,.18);--tab-thumb-sheen:none;--tab-active-ink:#16181C;
---bar-shadow:0 10px 30px rgba(0,0,0,.35);--field-shadow:inset 0 0 0 1px rgba(255,255,255,.06);
---toast:#2A2D33;--tu-graphite:#16181C;--tu-lime:#DBFF00;
+--neutral:rgba(190,210,255,.26);--track:rgba(170,195,255,.11);--scrim:rgba(0,12,36,.66);
+--pill-bg:#0F3C77;--pill-ink:#F2F5FA;--surface-faint:#04285B;
+--glass-surface:#062C61;--glass-surface-2:#0B356D;--glass-border:rgba(170,195,255,.14);--glass-highlight:rgba(255,255,255,.06);--glass-shadow:rgba(0,8,30,.55);--glass-tint:rgba(219,255,0,.08);
+--flap:linear-gradient(178deg,#0D3870 0%,#062C61 49%,#04285B 51%,#0A336A 100%);--flap-hinge:rgba(0,8,30,.6);--flap-notch:#011C53;
+--glow-a:rgba(219,255,0,.07);--glow-b:rgba(120,170,255,.06);--grid:rgba(170,195,255,.035);--ease:cubic-bezier(.2,.8,.2,1);
+--bloom-a:rgba(219,255,0,.3);--bloom-b:rgba(1,55,102,.6);--bloom-c:rgba(120,170,255,.12);
+--hero-field:#062C61;--records-card:#062C61;--chip:#062C61;--chip-border:rgba(170,195,255,.16);
+--hero-grad:linear-gradient(180deg,#011C53 0%,#013766 30%,#0A3F62 48%,#023060 72%,#022452 100%);
+--kpi-card:#062C61;--kpi-ink:#F2F5FA;--kpi-dim:#A3B2CD;--kpi-up:#5BD08A;--kpi-down:#F2766E;
+--rail-active:rgba(219,255,0,.11);--rail-active-ring:inset 0 0 0 1px rgba(219,255,0,.3);--rail-active-ink:#F2F5FA;
+--tab-thumb:#DBFF00;--tab-thumb-shadow:0 2px 12px rgba(219,255,0,.22);--tab-thumb-sheen:none;--tab-active-ink:#0A1F45;
+--bar-shadow:0 10px 30px rgba(0,8,30,.4);--field-shadow:inset 0 0 0 1px rgba(170,195,255,.08);
+--toast:#0F3C77;--tu-graphite:#011C53;--tu-lime:#DBFF00;--tu-navy:#00285B;
 color-scheme:dark}
 
 /* Frame: stone in light, graphite at night. The sidebar follows the theme. */
 .sc-host > [data-theme="turnua"]{background:#ECEDEF !important}
-.sc-host > [data-theme="turnua-night"]{background:#0D0E10 !important}
+.sc-host > [data-theme="turnua-night"]{background:linear-gradient(155deg,#013766 0%,#00285B 42%,#011C53 100%) !important}
 .sc-host > [data-theme^="turnua"] > main{background:var(--panel)!important;border-color:var(--border)!important;box-shadow:0 1px 3px rgba(22,24,28,.04)!important}
 .sc-host > [data-theme="turnua-night"] > main{box-shadow:none!important}
-[data-theme="turnua-night"] nav[data-rail-nav]{--surface:rgba(255,255,255,.05);--surface-2:rgba(255,255,255,.07);--track:rgba(255,255,255,.1)}
+[data-theme="turnua-night"] nav[data-rail-nav]{--surface:rgba(170,195,255,.07);--surface-2:rgba(170,195,255,.1);--track:rgba(170,195,255,.13)}
 [data-theme="turnua"] nav[data-rail-nav]{--surface:#FFFFFF;--surface-2:#F7F8F8}
 [data-theme^="turnua"] nav[data-rail-nav] .ix3:focus-visible{outline:2px solid var(--focus);outline-offset:2px}
 /* active rail item: lime-family icon, ink label */
@@ -80,7 +83,7 @@ color-scheme:dark}
 [data-theme="turnua"] nav[data-rail-nav] [data-rail="active"]{--track:rgba(255,255,255,.16);--dim:#E8EAE4}
 [data-theme="turnua"] nav[data-rail-nav] [data-rail="active"]:hover{background:none!important}
 [data-theme="turnua"] nav[data-rail-nav] .ix3:hover{background:rgba(22,24,28,.04)!important}
-[data-theme="turnua-night"] nav[data-rail-nav] .ix3:hover{background:rgba(255,255,255,.05)!important}
+[data-theme="turnua-night"] nav[data-rail-nav] .ix3:hover{background:rgba(170,195,255,.08)!important}
 /* the Helpdesk badge keeps its alarm red; the others are quiet */
 /* section labels in the rail */
 .tu-navgroup{display:flex;align-items:center;width:100%;padding:16px 14px 6px;font:600 10px/1 var(--ui);letter-spacing:.14em;text-transform:uppercase;color:var(--faint)}
@@ -90,7 +93,7 @@ color-scheme:dark}
 [data-theme="turnua"] .tu-logo-light{display:block}
 [data-theme="turnua"] .tu-logo-dark{display:none}
 .tu-marktile{width:34px;height:34px;flex:none;border-radius:10px;background:#16181C;display:flex;align-items:center;justify-content:center;box-shadow:inset 0 0 0 1px rgba(255,255,255,.06)}
-[data-theme="turnua-night"] .tu-marktile{background:#22252A}
+[data-theme="turnua-night"] .tu-marktile{background:#00285B;box-shadow:inset 0 0 0 1px rgba(219,255,0,.22)}
 /* top-bar tabs: graphite pill in light, lime pill at night */
 [data-theme^="turnua"] header [data-nav-active="1"]{color:var(--tab-active-ink)!important}
 [data-theme^="turnua"] header [data-nav-active="1"] > span:not(.sc-interp){background:rgba(127,127,127,.22)!important;color:inherit!important}
@@ -410,3 +413,6 @@ button.tu-stat:focus-visible{outline:2px solid var(--focus);outline-offset:2px}
 .tu-card-h h2,.tu-card-h h3{font-size:14.5px}
 .tu-stat{box-shadow:var(--card-shadow)}
 .tu-stat .v{font-weight:650}
+/* night: mobile rail and demo badge sit on the navy, not graphite */
+@media (max-width:760px){.sc-host > [data-theme="turnua-night"] > nav[data-rail-nav]{background:#011C53!important}}
+[data-theme="turnua-night"] .tu-demochip{background:rgba(219,255,0,.12);color:#DBFF00;box-shadow:inset 0 0 0 1px rgba(219,255,0,.3)}
